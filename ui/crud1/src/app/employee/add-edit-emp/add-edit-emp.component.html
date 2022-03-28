@@ -4,21 +4,32 @@
 
         <label class="col-sm-2 col-form-label">Employee Name</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" [(ngModel)]="EmployeeName" placeholder="Enter Employee Name">
+            <input type="text" required minlength="2" #name="ngModel" [class.is-invalid]="name.invalid && name.touched" name="EmployeeName" class="form-control" [(ngModel)]="EmployeeName" placeholder="Enter Employee Name">
+
+            <div *ngIf="name.errors && (name.invalid || name.touched)" [class.d-none]="name.untouched" >
+                <small class="text-danger" *ngIf="name.errors ['required'] ">Name is requied</small>
+                    <small class="text-danger" *ngIf="name.errors ['minlength'] ">Name is to small</small>
+            </div>
         </div>
 
         <label class="col-sm-2 col-form-label my-3">Email</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" [(ngModel)]="EmailId" placeholder="xyz@gami.com">
+            <input type="text" required #email="ngModel" attern="[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$" [class.is-invalid]="email.invalid && email.touched" name="email"  class="form-control" [(ngModel)]="EmailId" placeholder="xyz@gami.com">
+
+            <div *ngIf="email.errors && (email.invalid || email.touched)"[class.d-none]="email.untouched">
+                <small class="text-danger" *ngIf="email.errors['required']">Email is requied</small>
+                <small class="text-danger" *ngIf="email.errors['pattern']">Email has @ inpute</small>
+            </div>
         </div>
 
         <label class="col-sm-2 col-form-label my-3">Department</label>
         <div class="col-sm-10">
-            <select class="form-control" [(ngModel)]="Department">
+            <select  formControlName="Department" [class.is-invalid]="(Department.touched)" [class.d-none]="Department.untouched" required class="form-control" [(ngModel)]="Department">
                 <option>--Select--</option>
                 <option *ngFor="let depName of DepartmentsList">
                     {{depName.DepartmentName}}
                 </option>
+                
             </select>
         </div>
 

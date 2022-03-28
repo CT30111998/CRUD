@@ -1,3 +1,6 @@
+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 TOKEN for Git 
+
+
 import { Component, OnInit } from '@angular/core';
 import {SharedService} from 'src/app/shared.service';
 
@@ -63,3 +66,25 @@ export class ShowEmpComponent implements OnInit {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <label class="col-sm-2 col-form-label">Employee Name</label>
+        <div class="col-sm-10">
+            <input type="text" required minlength="2" #name="ngModel" [class.is-invalid]="name.invalid && name.touched" name="EmployeeName" class="form-control" [(ngModel)]="EmployeeName" placeholder="Enter Employee Name">
+
+            <div *ngIf="name.errors && (name.invalid || name.touched)" [class.d-none]="name.untouched" >
+                <small class="text-danger" *ngIf="name.errors ['required'] ">Name is requied</small>
+                    <small class="text-danger" *ngIf="name.errors ['minlength'] ">Name is to small</small>
+            </div>
+        </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {SharedService} from 'src/app/shared.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-emp',
@@ -8,14 +9,27 @@ import {SharedService} from 'src/app/shared.service';
 })
 export class AddEditEmpComponent implements OnInit {
 
+  submit = false;
   constructor(private service:SharedService) { }
+
+  EmployeeName = new FormControl('',[Validators.required,Validators.minLength(2)]);
+  EmailId = new FormControl('',[Validators.required,Validators.email]);
+  Department = new FormControl('',[Validators.required]);
+  DateOfJoining = new FormControl('',[Validators.required]);
+
+
+  frgForm = new FormGroup({
+    EmployeeName:this.EmployeeName,
+    EmailId:this.EmailId,
+    Department:this.Department,
+    DateOfJoining:this.DateOfJoining,
+  })
+
+  
+
 
   @Input() emp:any;
   EmployeeId:any;
-  EmployeeName:any;
-  EmailId:any;
-  Department:any;
-  DateOfJoining:any;
   PhotoFileName:any;
   ImgPath:any;
 
@@ -51,6 +65,8 @@ export class AddEditEmpComponent implements OnInit {
       alert(res.toString());
     });
   }
+
+  get f() { return this.frgForm.controls; }
 
   updateEmployee(){
     var val = {EmployeeId:this.EmployeeId,
