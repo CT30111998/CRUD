@@ -1,7 +1,7 @@
 <div class="d-flex flex-row bd-highlight mb-3">
 
     <div class="form-froup row" style="width: 60%;">
-
+    
         <label class="col-sm-2 col-form-label">Employee Name</label>
         <div class="col-sm-10">
             <input type="text" required minlength="2" #name="ngModel" [class.is-invalid]="name.invalid && name.touched" name="EmployeeName" class="form-control" [(ngModel)]="EmployeeName" placeholder="Enter Employee Name">
@@ -11,45 +11,45 @@
                     <small class="text-danger" *ngIf="name.errors ['minlength'] ">Name is to small</small>
             </div>
         </div>
-
-        <label class="col-sm-2 col-form-label my-3">Email</label>
+        
+        <label class="col-sm-2 col-form-label">Email ID</label>
         <div class="col-sm-10">
-            <input type="text" required #email="ngModel" attern="[a-z0-9]+@[a-z0-9]+\.[a-z]{2,}$" [class.is-invalid]="email.invalid && email.touched" name="email"  class="form-control" [(ngModel)]="EmailId" placeholder="xyz@gami.com">
+            <input type="text" required minlength="2" #email="ngModel" [class.is-invalid]="email.invalid && email.touched" name="email" class="form-control" [(ngModel)]="EmailId" placeholder="xyz@gmail.com">
 
-            <div *ngIf="email.errors && (email.invalid || email.touched)"[class.d-none]="email.untouched">
-                <small class="text-danger" *ngIf="email.errors['required']">Email is requied</small>
-                <small class="text-danger" *ngIf="email.errors['pattern']">Email has @ inpute</small>
+            <div *ngIf="email.errors && (email.invalid || email.touched)" [class.d-none]="email.untouched" >
+                <small class="text-danger" *ngIf="email.errors ['required'] ">Email ID is requied</small>
+                    <small class="text-danger" *ngIf="email.errors ['minlength'] ">Email is to small</small>
             </div>
         </div>
 
-        <label class="col-sm-2 col-form-label my-3">Department</label>
+    
+        <label class="col-sm-2 col-form-label">Department</label>
         <div class="col-sm-10">
-            <select  formControlName="Department" [class.is-invalid]="(Department.touched)" [class.d-none]="Department.untouched" required class="form-control" [(ngModel)]="Department">
-                <option>--Select--</option>
-                <option *ngFor="let depName of DepartmentsList">
-                    {{depName.DepartmentName}}
-                </option>
-                
-            </select>
+           <select class="form-control" [(ngModel)]="Department">
+               <option>--Select--</option>
+               <option *ngFor="let depName of DepartmentsList">
+                   {{depName.DepartmentName}}
+               </option>
+           </select>
         </div>
-
+    
         <label class="col-sm-2 col-form-label">Date of joining</label>
         <div class="col-sm-10">
-            <input type="date" [(ngModel)]="DateOfJoining">
+            <input type="date"  [(ngModel)]="DateOfJoining">
         </div>
-
+    
     </div>
     <div class="ml-3 bd-highlight" style="width: 40%;">
-        <img [src]=ImgPath height="250px;" width="200px;">
-        <input type="file" (change)="uploadPhoto($event)" class="mt-2" />
+    <img [src]=ImgPath height="250px;" width="200px;">
+    <input type="file" (change)="uploadPhoto($event)" class="mt-2"/>
     </div>
-</div>
-
-
-<button (click)="addEmployee()" *ngIf="emp.EmployeeId==0" class="btn btn-primary">
-    Add
-</button>
-
-<button (click)="updateEmployee()" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
-    Update
-</button>
+    </div>
+    
+    
+    <button (click)="addEmployee()" *ngIf="emp.EmployeeId==0" class="btn btn-primary">
+        Add
+    </button>
+    
+    <button (click)="updateEmployee()" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
+        Update
+    </button>

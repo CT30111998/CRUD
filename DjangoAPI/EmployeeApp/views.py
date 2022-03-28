@@ -45,32 +45,32 @@ def employeeApi(request, id=0):
         employees_serializer = EmployeeSerializer(employees, many=True)
         return JsonResponse(employees_serializer.data, safe=False)
 
-    elif request.method=='POST':
-        employee_data=JSONParser().parse(request)
+    elif request.method == 'POST':
+        employee_data = JSONParser().parse(request)
         employee_serializer = EmployeeSerializer(data=employee_data)
         if employee_serializer.is_valid():
             employee_serializer.save()
             return JsonResponse("Added Successfully!!", safe=False)
         return JsonResponse("Failed to Add.", safe=False)
     
-    elif request.method=='PUT':
+    elif request.method == 'PUT':
         employee_data = JSONParser().parse(request)
-        employee=Employees.objects.get(EmployeeId=employee_data['EmployeeId'])
-        employee_serializer=EmployeeSerializer(employee,data=employee_data)
+        employee = Employees.objects.get(EmployeeId=employee_data['EmployeeId'])
+        employee_serializer = EmployeeSerializer(employee, data=employee_data)
         if employee_serializer.is_valid():
             employee_serializer.save()
             return JsonResponse("Updated Successfully!!", safe=False)
         return JsonResponse("Failed to Update.", safe=False)
 
-    elif request.method=='DELETE':
-        employee=Employees.objects.get(EmployeeId=id)
+    elif request.method == 'DELETE':
+        employee = Employees.objects.get(EmployeeId=id)
         employee.delete()
         return JsonResponse("Deleted Succeffully!!", safe=False)
 
 
 @csrf_exempt
 def SaveFile(request):
-    file=request.FILES['uploadedFile']
-    file_name = default_storage.save(file.name,file)
+    file = request.FILES['uploadedFile']
+    file_name = default_storage.save(file.name, file)
 
-    return JsonResponse(file_name,safe=False)
+    return JsonResponse(file_name, safe=False)
