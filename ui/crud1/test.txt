@@ -1,4 +1,4 @@
-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 TOKEN for Git 
+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 TOKEN for Git
 
 
 import { Component, OnInit } from '@angular/core';
@@ -88,3 +88,18 @@ export class ShowEmpComponent implements OnInit {
                     <small class="text-danger" *ngIf="name.errors ['minlength'] ">Name is to small</small>
             </div>
         </div>
+
+
+
+            elif request.method=='POST':
+        department_data=JSONParser().parse(request)
+        department_serializer = DepartmentSerializer(data=department_data)
+        if department_serializer.is_valid():
+            check_existing=Employees.objects.filter(EmailId=EmailId) and Employees.objects.filter(EmployeeName=EmployeeName).exists()
+            if check_existing:
+                messages.success(request,'Email Allready Exist')
+                return redirect('/')
+            else:
+                department_serializer.save()
+            return JsonResponse("Added Successfully!!" , safe=False)
+        return JsonResponse("Failed to Add.",safe=False)
