@@ -12,11 +12,21 @@ export class AddEditEmpComponent implements OnInit {
   submit = false;
   constructor(private service: SharedService) { }
 
+  keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+ 
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   EmployeeName = new FormControl('', [Validators.required, Validators.minLength(2)]);
   EmailId = new FormControl('', [Validators.required, Validators.email]);
   Department = new FormControl('', [Validators.required]);
   DateOfJoining = new FormControl('', [Validators.required]);
-  PhoneNo = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}')]);
+  PhoneNo = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}'),
+  Validators.minLength(10), Validators.maxLength(10)]);
 
 
   frgForm = new FormGroup({

@@ -14,6 +14,7 @@ import { SharedService } from './shared.service';
 import { HttpClientModule } from  '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     EmployeeComponent,
     ShowEmpComponent,
     AddEditEmpComponent,
-    NavBarComponent
+    NavBarComponent,
+    PhoneFormatPipe
   ],
   imports: [
     BrowserModule,
