@@ -33,6 +33,7 @@ export class ShowEmpComponent implements OnInit {
       EmployeeId:0,
       EmployeeName:"",
       EmailId:"",
+      PhoneNo:"",
       Department:"",
       DateOfJoining:"",
       PhotoFileName:"",

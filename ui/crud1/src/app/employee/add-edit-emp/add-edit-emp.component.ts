@@ -16,6 +16,7 @@ export class AddEditEmpComponent implements OnInit {
   EmailId = new FormControl('', [Validators.required, Validators.email]);
   Department = new FormControl('', [Validators.required]);
   DateOfJoining = new FormControl('', [Validators.required]);
+  PhoneNo = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}')]);
 
 
   frgForm = new FormGroup({
@@ -23,6 +24,7 @@ export class AddEditEmpComponent implements OnInit {
     EmailId: this.EmailId,
     Department: this.Department,
     DateOfJoining: this.DateOfJoining,
+    PhoneNo:this.PhoneNo,
   })
 
 
@@ -42,28 +44,26 @@ export class AddEditEmpComponent implements OnInit {
   loadDepartmentList() {
     this.service.getAllDepartmentNames().subscribe((data: any) => {
       this.DepartmentsList = data;
-
+      console.log(this.emp);
+      this.frgForm.patchValue(this.emp);
       this.EmployeeId = this.emp.EmployeeId;
-      this.EmployeeName = this.emp.EmployeeName;
-      this.EmailId = this.emp.EmailId;
-      this.Department = this.emp.Department;
-      this.DateOfJoining = this.emp.DateOfJoining;
       this.PhotoFileName = this.emp.PhotoFileName;
       this.ImgPath = this.service.PhotoUrl + this.PhotoFileName;
     });
   }
 
   addEmployee() {
+    this.submit=true;
     var val = {
-      EmployeeId: this.EmployeeId,
-      EmployeeName: this.EmployeeName,
-      EmailId: this.EmailId,
-      Department: this.Department,
-      DateOfJoining: this.DateOfJoining,
+      ...this.frgForm.value,
       PhotoFileName: this.PhotoFileName
     };
 
     this.service.addEmployee(val).subscribe(res => {
+      
+      if (this.frgForm.invalid) {
+        return;
+      }
       alert(res.toString());
     });
   }
@@ -71,12 +71,10 @@ export class AddEditEmpComponent implements OnInit {
   get f() { return this.frgForm.controls; }
 
   updateEmployee() {
+    this.submit=true;
     var val = {
       EmployeeId: this.EmployeeId,
-      EmployeeName: this.EmployeeName,
-      EmailId: this.EmailId,
-      Department: this.Department,
-      DateOfJoining: this.DateOfJoining,
+      ...this.frgForm.value,
       PhotoFileName: this.PhotoFileName
     };
 
