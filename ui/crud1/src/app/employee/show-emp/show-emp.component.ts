@@ -8,52 +8,52 @@ import { SharedService } from 'src/app/shared.service';
 })
 export class ShowEmpComponent implements OnInit {
 
-  constructor(private service:SharedService) { }
+  constructor(private service: SharedService) { }
 
-  EmployeeList:any=[];
+  EmployeeList: any = [];
 
-  ModalTitle:any;
-  ActivateAddEditEmpComp:boolean=false;
-  emp:any;
+  ModalTitle: any;
+  ActivateAddEditEmpComp: boolean = false;
+  emp: any;
 
   ngOnInit(): void {
     this.refreshEmpList();
   }
 
   //for gate data from databases
-  refreshEmpList(){
-    this.service.getEmpList().subscribe(data=>{
-      this.EmployeeList=data;
+  refreshEmpList() {
+    this.service.getEmpList().subscribe(data => {
+      this.EmployeeList = data;
     });
   }
 
   //For add new fild
-  addClick(){
-    this.emp={
-      EmployeeId:0,
-      EmployeeName:"",
-      EmailId:"",
-      PhoneNo:"",
-      Department:"",
-      DateOfJoining:"",
-      PhotoFileName:"",
+  addClick() {
+    this.emp = {
+      EmployeeId: 0,
+      EmployeeName: "",
+      EmailId: "",
+      PhoneNo: "",
+      Department: "",
+      DateOfJoining: "",
+      PhotoFileName: "",
     }
-    this.ModalTitle="Add Employees";
-    this.ActivateAddEditEmpComp=true;
+    this.ModalTitle = "Add Employees";
+    this.ActivateAddEditEmpComp = true;
   }
 
   //For Add in current Fild
-  editClick(item:any){
+  editClick(item: any) {
     console.log(item);
-    this.emp=item;
-    this.ModalTitle="Edit Employee";
-    this.ActivateAddEditEmpComp=true;
+    this.emp = item;
+    this.ModalTitle = "Edit Employee";
+    this.ActivateAddEditEmpComp = true;
   }
 
   //for delete
-  deleteClick(item:any){
-    if(confirm('Are you sure??')){
-      this.service.deleteEmployee(item.EmployeeId).subscribe(data=>{
+  deleteClick(item: any) {
+    if (confirm('Are you sure??')) {
+      this.service.deleteEmployee(item.EmployeeId).subscribe(data => {
         alert(data.toString());
         this.refreshEmpList();
       })
@@ -61,8 +61,8 @@ export class ShowEmpComponent implements OnInit {
   }
 
   //for Time
-  closeClick(){
-    this.ActivateAddEditEmpComp=false;
+  closeClick() {
+    this.ActivateAddEditEmpComp = false;
     this.refreshEmpList();
   }
 

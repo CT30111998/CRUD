@@ -14,7 +14,7 @@ export class AddEditEmpComponent implements OnInit {
 
   keyPress(event: any) {
     const pattern = /[0-9\+\-\ ]/;
- 
+
     let inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
       event.preventDefault();
@@ -34,7 +34,7 @@ export class AddEditEmpComponent implements OnInit {
     EmailId: this.EmailId,
     Department: this.Department,
     DateOfJoining: this.DateOfJoining,
-    PhoneNo:this.PhoneNo,
+    PhoneNo: this.PhoneNo,
   })
 
 
@@ -63,17 +63,17 @@ export class AddEditEmpComponent implements OnInit {
   }
 
   addEmployee() {
-    this.submit=true;
+    this.submit = true;
+    if (this.frgForm.invalid) {
+      return;
+    }
     var val = {
       ...this.frgForm.value,
       PhotoFileName: this.PhotoFileName
     };
 
     this.service.addEmployee(val).subscribe(res => {
-      
-      if (this.frgForm.invalid) {
-        return;
-      }
+
       alert(res.toString());
     });
   }
@@ -81,7 +81,10 @@ export class AddEditEmpComponent implements OnInit {
   get f() { return this.frgForm.controls; }
 
   updateEmployee() {
-    this.submit=true;
+    this.submit = true;
+    if (this.frgForm.invalid) {
+      return;
+    }
     var val = {
       EmployeeId: this.EmployeeId,
       ...this.frgForm.value,
