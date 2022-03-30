@@ -18,6 +18,7 @@ export class AddEditEmpComponent implements OnInit {
   DateOfJoining = new FormControl('', [Validators.required]);
   PhoneNo = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}'),
   Validators.minLength(10), Validators.maxLength(10)]);
+  EmpSalary = new FormControl('',[Validators.required]);
 
 
   frgForm = new FormGroup({
@@ -26,6 +27,7 @@ export class AddEditEmpComponent implements OnInit {
     Department: this.Department,
     DateOfJoining: this.DateOfJoining,
     PhoneNo: this.PhoneNo,
+    EmpSalary: this.EmpSalary,
   })
 
 

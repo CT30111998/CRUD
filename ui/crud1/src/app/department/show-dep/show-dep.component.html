@@ -29,6 +29,7 @@
     <tr>
       <th>DepartmentID</th>
       <th>Departmant Name</th>
+      <th>Employees Number</th>
       <th>Option</th>
     </tr>
   </thead>
@@ -36,6 +37,7 @@
     <tr *ngFor="let dataItem of DepartmentList">
       <td> {{dataItem.DepartmentId}} </td>
       <td> {{dataItem.DepartmentName}} </td>
+      <td> {{1}} </td>
       <td>
         <button class="btn btn-primary mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
           (click)="editClick(dataItem)" data-backdrop="static" data-keybord="false">

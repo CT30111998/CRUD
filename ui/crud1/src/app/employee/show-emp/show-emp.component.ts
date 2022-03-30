@@ -35,6 +35,7 @@ export class ShowEmpComponent implements OnInit {
       EmailId: "",
       PhoneNo: "",
       Department: "",
+      Salary:"",
       DateOfJoining: "",
       PhotoFileName: "",
     }

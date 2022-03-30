@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { MyDiraectiveDirective } from './dir/my-diraective.directive';
+import { FloDirDirective } from './dir/flo-dir.directive';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MyDiraectiveDirective } from './dir/my-diraective.directive';
     AddEditEmpComponent,
     NavBarComponent,
     PhoneFormatPipe,
-    MyDiraectiveDirective
+    MyDiraectiveDirective,
+    FloDirDirective
   ],
   imports: [
     BrowserModule,
