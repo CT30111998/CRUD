@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { groupBy } from 'rxjs';
+
 import { SharedService } from 'src/app/shared.service';
-import { debounce } from "lodash";
+
 
 @Component({
   selector: 'app-show-dep',
@@ -14,6 +14,8 @@ export class ShowDepComponent implements OnInit {
 
   DepartmentList: any = [];
   EmployeeList: any = [];
+
+  searchedKeyword: any;
 
   ModalTitle: any;
   ActivateAddEditDepComp: boolean = false;
@@ -82,20 +84,6 @@ export class ShowDepComponent implements OnInit {
       this.DepartmentList = data;
       this.loadEmp();
       this.DepartmentListWithoutFilter = data;
-    });
-  }
-
-  FilterFn() {
-    var DepartmentIdFilter = this.DepartmentIdFilter;
-    var DepartmentNameFilter = this.DepartmentNameFilter;
-
-    this.DepartmentList = this.DepartmentListWithoutFilter.filter(function (el: any) {
-      return el.DepartmentId.toString().toLowerCase().includes(
-        DepartmentIdFilter.toString().trim().toLowerCase()
-      ) &&
-        el.DepartmentName.toString().toLowerCase().includes(
-          DepartmentNameFilter.toString().trim().toLowerCase()
-        )
     });
   }
 

@@ -4,9 +4,11 @@
   (click)="addClick()" data-backdrop="static" data-keybord="false">
   Add Department
 </button>
+
+
 <form class="form-inline float-right m-2">
-  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  <input class="form-control mr-sm-2"  [(ngModel)]="searchedKeyword" name="first" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
 </form>
 
 <!-- Modal -->
@@ -39,7 +41,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataItem of DepartmentList">
+    <tr *ngFor="let dataItem of DepartmentList | filter:searchedKeyword">
       <td> {{dataItem.DepartmentId}} </td>
       <td> {{dataItem.DepartmentName}} </td>
       <td> {{ dataItem?.employees?.length }} </td>
@@ -55,7 +57,6 @@
         </button>
       </td>
     </tr>
-
   </tbody>
 
 </table>

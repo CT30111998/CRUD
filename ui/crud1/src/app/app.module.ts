@@ -17,6 +17,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
 import { MyDiraectiveDirective } from './dir/my-diraective.directive';
 import { FloDirDirective } from './dir/flo-dir.directive';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchBynamePipe } from './pipes/search-byname.pipe';
 
 @NgModule({
   declarations: [
@@ -30,14 +32,16 @@ import { FloDirDirective } from './dir/flo-dir.directive';
     NavBarComponent,
     PhoneFormatPipe,
     MyDiraectiveDirective,
-    FloDirDirective
+    FloDirDirective,
+    SearchBynamePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2SearchPipeModule,
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]
