@@ -15,6 +15,7 @@ import { HttpClientModule } from  '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
+import { MyDiraectiveDirective } from './dir/my-diraective.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PhoneFormatPipe } from './pipes/phone-format.pipe';
     ShowEmpComponent,
     AddEditEmpComponent,
     NavBarComponent,
-    PhoneFormatPipe
+    PhoneFormatPipe,
+    MyDiraectiveDirective
   ],
   imports: [
     BrowserModule,
