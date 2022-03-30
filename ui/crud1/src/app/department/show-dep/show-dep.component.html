@@ -1,8 +1,13 @@
 <!-- Button trigger modal -->
+
 <button type="button" class="btn btn-primary float-right m-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
   (click)="addClick()" data-backdrop="static" data-keybord="false">
   Add Department
 </button>
+<form class="form-inline float-right m-2">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -37,7 +42,9 @@
     <tr *ngFor="let dataItem of DepartmentList">
       <td> {{dataItem.DepartmentId}} </td>
       <td> {{dataItem.DepartmentName}} </td>
-      <td> {{1}} </td>
+      <td> {{ dataItem?.employees?.length }} </td>
+      
+      
       <td>
         <button class="btn btn-primary mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal"
           (click)="editClick(dataItem)" data-backdrop="static" data-keybord="false">
