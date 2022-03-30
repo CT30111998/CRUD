@@ -1,8 +1,19 @@
 <!-- Button trigger modal -->
+
+
 <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal"
   (click)="addClick()" data-backdrop="static" data-keyboard="false">
   Add Employee
 </button>
+
+<div class=" col-sm-10  float-right m-2">
+  <select class="form-control" [(ngModel)]="selected" (change)="valueSelected" >
+    <option value="">--Select--</option>
+    <option *ngFor="let depName of DepartmentsList">
+      {{depName.DepartmentName}}
+    </option>
+  </select>
+  </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -39,7 +50,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataItem of EmployeeList">
+    <tr *ngFor="let dataItem of EmployeeList | filter:selected">
       <td>{{dataItem.EmployeeId}}</td>
       <td>{{dataItem.EmployeeName}}</td>
       <td>{{dataItem.EmailId}}</td>

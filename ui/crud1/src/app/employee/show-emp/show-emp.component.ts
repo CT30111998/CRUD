@@ -11,6 +11,9 @@ export class ShowEmpComponent implements OnInit {
   constructor(private service: SharedService) { }
 
   EmployeeList: any = [];
+  DepartmentsList:any=[];
+
+  selected:any;
 
   ModalTitle: any;
   ActivateAddEditEmpComp: boolean = false;
@@ -18,11 +21,19 @@ export class ShowEmpComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshEmpList();
+    
+  }
+  
+  public valueSelected() {
+    this.DepartmentsList = this.DepartmentsList.DepartmentName.filter(
+      (item:any) => item.name === this.selected
+    );
   }
 
   //for gate data from databases
   refreshEmpList() {
     this.service.getEmpList().subscribe(data => {
+      this.loadDepartmentList();
       this.EmployeeList = data;
     });
   }
@@ -41,6 +52,15 @@ export class ShowEmpComponent implements OnInit {
     }
     this.ModalTitle = "Add Employees";
     this.ActivateAddEditEmpComp = true;
+  }
+
+
+  //load dept 
+  loadDepartmentList() {
+    this.service.getAllDepartmentNames().subscribe((data: any) => {
+      this.DepartmentsList = data;
+      console.log(this.DepartmentsList)
+    });
   }
 
   //For Add in current Fild
