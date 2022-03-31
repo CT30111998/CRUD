@@ -19,6 +19,10 @@ import { MyDiraectiveDirective } from './dir/my-diraective.directive';
 import { FloDirDirective } from './dir/flo-dir.directive';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchBynamePipe } from './pipes/search-byname.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker'  
+import { MatNativeDateModule } from '@angular/material/core'  
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { SearchBynamePipe } from './pipes/search-byname.pipe';
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,  
+    MatNativeDateModule,   
+    MatFormFieldModule,  
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import {FormGroup, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-show-emp',
@@ -7,6 +8,8 @@ import { SharedService } from 'src/app/shared.service';
   styleUrls: ['./show-emp.component.css']
 })
 export class ShowEmpComponent implements OnInit {
+
+  
 
   constructor(private service: SharedService) { }
 
