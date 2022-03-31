@@ -7,17 +7,17 @@
 </button>
 
 <div class=" col-sm-3  float-right m-2">
-  <select class="form-control" [(ngModel)]="selected" (change)="valueSelected">
+  <select class="form-control" [(ngModel)]="selected" (change)="valueSelected" >
     <option value="">--Select--</option>
     <option *ngFor="let depName of DepartmentsList">
       {{depName.DepartmentName}}
     </option>
   </select>
-</div>
+  </div>
 
-<div class=" col-sm-3  float-right m-2">
-  <input type="date" formControlName="DateOfJoining" class="form-control">
-</div>
+  <div class=" col-sm-3  float-right m-2">
+    <input type="date" class="form-control">
+  </div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
