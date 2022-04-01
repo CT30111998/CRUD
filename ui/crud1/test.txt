@@ -1,0 +1,311 @@
+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 TOKEN for Git
+
+
+import { Component, OnInit } from '@angular/core';
+import {SharedService} from 'src/app/shared.service';
+
+@Component({
+  selector: 'app-show-emp',
+  templateUrl: './show-emp.component.html',
+  styleUrls: ['./show-emp.component.css']
+})
+export class ShowEmpComponent implements OnInit {
+
+  constructor(private service:SharedService) { }
+
+  EmployeeList:any=[];
+
+  ModalTitle:string;
+  ActivateAddEditEmpComp:boolean=false;
+  emp:any;
+
+  ngOnInit(): void {
+    this.refreshEmpList();
+  }
+
+  addClick(){
+    this.emp={
+      EmployeeId:0,
+      EmployeeName:"",
+      Department:"",
+      DateOfJoining:"",
+      PhotoFileName:"anonymous.png"
+    }
+    this.ModalTitle="Add Employee";
+    this.ActivateAddEditEmpComp=true;
+
+  }
+
+  editClick(item){
+    console.log(item);
+    this.emp=item;
+    this.ModalTitle="Edit Employee";
+    this.ActivateAddEditEmpComp=true;
+  }
+
+  deleteClick(item){
+    if(confirm('Are you sure??')){
+      this.service.deleteEmployee(item.EmployeeId).subscribe(data=>{
+        alert(data.toString());
+        this.refreshEmpList();
+      })
+    }
+  }
+
+  closeClick(){
+    this.ActivateAddEditEmpComp=false;
+    this.refreshEmpList();
+  }
+
+
+  refreshEmpList(){
+    this.service.getEmpList().subscribe(data=>{
+      this.EmployeeList=data;
+    });
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <label class="col-sm-2 col-form-label">Employee Name</label>
+        <div class="col-sm-10">
+            <input type="text" required minlength="2" #name="ngModel" [class.is-invalid]="name.invalid && name.touched" name="EmployeeName" class="form-control" [(ngModel)]="EmployeeName" placeholder="Enter Employee Name">
+
+            <div *ngIf="name.errors && (name.invalid || name.touched)" [class.d-none]="name.untouched" >
+                <small class="text-danger" *ngIf="name.errors ['required'] ">Name is requied</small>
+                    <small class="text-danger" *ngIf="name.errors ['minlength'] ">Name is to small</small>
+            </div>
+        </div>
+
+
+
+            elif request.method=='POST':
+        department_data=JSONParser().parse(request)
+        department_serializer = DepartmentSerializer(data=department_data)
+        if department_serializer.is_valid():
+            check_existing=Employees.objects.filter(EmailId=EmailId) and Employees.objects.filter(EmployeeName=EmployeeName).exists()
+            if check_existing:
+                messages.success(request,'Email Allready Exist')
+                return redirect('/')
+            else:
+                department_serializer.save()
+            return JsonResponse("Added Successfully!!" , safe=False)
+        return JsonResponse("Failed to Add.",safe=False)
+
+
+
+
+
+
+<div class="d-flex flex-row bd-highlight mb-3">
+
+    <div class="form-froup row" style="width: 60%;">
+
+        <label class="col-sm-2 col-form-label">Employee Name</label>
+        <div class="col-sm-10">
+            <input type="text" required minlength="2" #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
+                name="EmployeeName" class="form-control" [(ngModel)]="EmployeeName" placeholder="Enter Employee Name">
+
+            <div *ngIf="name.errors && (name.invalid || name.touched)" [class.d-none]="name.untouched">
+                <small class="text-danger" *ngIf="name.errors ['required'] ">Name is requied</small>
+                <small class="text-danger" *ngIf="name.errors ['minlength'] ">Name is to small</small>
+            </div>
+        </div>
+
+        <label class="col-sm-2 col-form-label">Email ID</label>
+        <div class="col-sm-10">
+            <input type="text" required minlength="2" #email="ngModel"
+                [class.is-invalid]="email.invalid && email.touched" name="email" class="form-control"
+                [(ngModel)]="EmailId" placeholder="xyz@gmail.com">
+
+            <div *ngIf="email.errors && (email.invalid || email.touched)" [class.d-none]="email.untouched">
+                <small class="text-danger" *ngIf="email.errors ['required'] ">Email ID is requied</small>
+                <small class="text-danger" *ngIf="email.errors ['minlength'] ">Email is to small</small>
+            </div>
+        </div>
+
+
+        <label class="col-sm-2 col-form-label">Department</label>
+        <div class="col-sm-10">
+            <select class="form-control" [(ngModel)]="Department">
+                <option>--Select--</option>
+                <option *ngFor="let depName of DepartmentsList">
+                    {{depName.DepartmentName}}
+                </option>
+            </select>
+        </div>
+
+        <label class="col-sm-2 col-form-label">Date of joining</label>
+        <div class="col-sm-10">
+            <input type="date" [(ngModel)]="DateOfJoining">
+        </div>
+
+    </div>
+    <div class="ml-3 bd-highlight" style="width: 40%;">
+        <img [src]=ImgPath height="250px;" width="200px;">
+        <input type="file" (change)="uploadPhoto($event)" class="mt-2" />
+    </div>
+</div>
+
+
+<button (click)="addEmployee()" *ngIf="emp.EmployeeId==0" class="btn btn-primary">
+    Add
+</button>
+
+<button (click)="updateEmployee()" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
+    Update
+</button>
+
+
+For Mobile
+html
+<label class="col-sm-2 col-form-label">Phone No</label>
+                        <div class="col-sm-10">
+                            <input type="text" (keypress)="keyPress($event)" required formControlName="PhoneNo"
+                                class="form-control" [ngClass]="{ 'is-invalid': submit && f['PhoneNo'].errors }" />
+                            <div *ngIf="submit && f['PhoneNo'].errors" class="invalid-feedback">
+                                <div *ngIf="f['PhoneNo'].errors['required']">Phone No is required</div>
+                                <div
+                                    *ngIf="f['PhoneNo'].errors['pattern'] || f['PhoneNo'].errors['minLength'] || f['PhoneNo'].errors['maxLength'] ">
+                                    Phone must be 10 degits</div>
+                            </div>
+                        </div>
+
+
+For ts 
+keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+
+    let inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+for show-emp.com.ts
+import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared.service';
+
+@Component({
+  selector: 'app-show-emp',
+  templateUrl: './show-emp.component.html',
+  styleUrls: ['./show-emp.component.css']
+})
+export class ShowEmpComponent implements OnInit {
+
+  constructor(private service: SharedService) { }
+
+  EmployeeList: any = [];
+  DepartmentList:any=[];
+
+  selected:any;
+
+  ModalTitle: any;
+  ActivateAddEditEmpComp: boolean = false;
+  emp: any;
+
+  ngOnInit(): void {
+    this.refreshEmpList();
+    
+  }
+  
+  //for dropdown
+  public valueSelected() {
+    this.DepartmentList = this.DepartmentList.DepartmentName.filter(
+      (item:any) => item.name === this.selected
+    );
+  }
+
+ 
+
+  //For add new fild
+  addClick() {
+    this.emp = {
+      EmployeeId: 0,
+      EmployeeName: "",
+      EmailId: "",
+      PhoneNo: "",
+      Department: "",
+      Salary:"",
+      DateOfJoining: "",
+      PhotoFileName: "",
+    }
+    this.ModalTitle = "Add Employees";
+    this.ActivateAddEditEmpComp = true;
+  }
+
+
+  //load dept getEmpList group by
+  loadDept(){
+    this.service.getAllDepartmentNames().subscribe((data:any)=>{
+      this.DepartmentList=data.reduce((acc:any,curr:any)=>{
+        if(!acc[curr.Employee]){
+          acc[curr.Employee]=[];
+        }
+        acc[curr.Employee].push(curr);
+        return acc;
+      },{});
+
+      this.EmployeeList = this.EmployeeList.map((item:any)=>{
+        item.dept=this.DepartmentList[item.DepartmentId];
+        return item;
+      });
+      console.log(this.EmployeeList);
+    });
+  }
+ 
+
+  //For Add in current Fild
+  editClick(item: any) {
+    console.log(item);
+    this.emp = item;
+    this.ModalTitle = "Edit Employee";
+    this.ActivateAddEditEmpComp = true;
+  }
+
+  //for delete
+  deleteClick(item: any) {
+    if (confirm('Are you sure??')) {
+      this.service.deleteEmployee(item.EmployeeId).subscribe(data => {
+        alert(data.toString());
+        this.refreshEmpList();
+      })
+    }
+  }
+
+  //for Time
+  closeClick() {
+    this.ActivateAddEditEmpComp = false;
+    this.refreshEmpList();
+  }
+
+   //for gate data from databases
+   refreshEmpList() {
+    this.service.getEmpList().subscribe(data => {
+      this.loadDept();
+      this.EmployeeList = data;
+    });
+  }
+
+}

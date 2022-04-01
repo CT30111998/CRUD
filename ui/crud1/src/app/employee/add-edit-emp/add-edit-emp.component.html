@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="card m-3">
+        <div class="card-body">
+            <form [formGroup]="frgForm" (ngSubmit)="addEmployee()">
+
+                <div class="d-flex flex-row bd-highlight mb-3">
+
+                    <div class="form-froup row" style="width: 60%;">
+
+                        <label class="col-sm-2 col-form-label">Employee Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="EmployeeName" class="form-control"
+                                [ngClass]="{ 'is-invalid': submit && f['EmployeeName'].errors }" />
+                            <div *ngIf="submit && f['EmployeeName'].errors" class="invalid-feedback">
+                                <div *ngIf="f['EmployeeName'].errors['required']">Employee Name is required</div>
+                                <div *ngIf="f['EmployeeName'].errors['minlength']">Employee is to small</div>
+                            </div>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Email ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="EmailId" class="form-control"
+                                [ngClass]="{ 'is-invalid': submit && f['EmailId'].errors }" />
+                            <div *ngIf="submit && f['EmailId'].errors" class="invalid-feedback">
+                                <div *ngIf="f['EmailId'].errors['required']">EmailId is required</div>
+                                <div *ngIf="f['EmailId'].errors['email']">Email must be a valid email address</div>
+                            </div>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Phone No</label>
+                        <div class="col-sm-10">
+                            <input type="text" appMyDiraective required formControlName="PhoneNo" class="form-control"
+                                [ngClass]="{ 'is-invalid': submit && f['PhoneNo'].errors }" />
+                            <div *ngIf="submit && f['PhoneNo'].errors" class="invalid-feedback">
+                                <div *ngIf="f['PhoneNo'].errors['required']">Phone No is required</div>
+                                <div
+                                    *ngIf="f['PhoneNo'].errors['pattern'] || f['PhoneNo'].errors['minLength'] || f['PhoneNo'].errors['maxLength'] ">
+                                    Phone must be 10 degits</div>
+                            </div>
+                        </div>
+
+
+                        <label class="col-sm-2 col-form-label">Department</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" formControlName="Department"
+                                [ngClass]="{ 'is-invalid':submit && f['Department'].errors}">
+                                <option value="">--Select--</option>
+                                <option *ngFor="let depName of DepartmentsList">
+                                    {{depName.DepartmentName}}
+                                </option>
+                            </select>
+                            <div *ngIf="submit && f['Department'].errors" class="invalid-feedback">
+                                <div *ngIf="f['Department'].errors['required']"> Department is required </div>
+                            </div>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Employee Salary</label>
+                        <div class="col-sm-10">
+                            <input type="text" appFloDir step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
+                                formControlName="EmpSalary" class="form-control"
+                                [ngClass]="{ 'is-invalid': submit && f['EmpSalary'].errors }" />
+                            <div *ngIf="submit && f['EmpSalary'].errors" class="invalid-feedback">
+                                <div *ngIf="f['EmpSalary'].errors['required']">EmpSalary is required</div>
+                            </div>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Date of joining</label>
+                        <div class="col-sm-10">
+                            <input type="date" formControlName="DateOfJoining" class="form-control"
+                                [ngClass]="{'is-invalid': submit && f['DateOfJoining'].errors}">
+                            <div *ngIf="submit && f['DateOfJoining'].errors" class="invalid-feedback">
+                                <div *ngIf="f['DateOfJoining'].errors['required']">Date is required</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="ml-3 bd-highlight" style="width: 40%;">
+                        <img [src]=ImgPath height="250px;" width="200px;">
+                        <input type="file" (change)="uploadPhoto($event)" class="mt-2" />
+                    </div>
+                </div>
+
+            </form>
+
+            <button (click)="addEmployee()" [disabled]="frgForm.invalid"  (click)="reloadPage()"  data-bs-dismiss="modal"  *ngIf="emp.EmployeeId==0" class="btn btn-primary">
+                Add
+            </button>
+
+            <button (click)="updateEmployee()" (click)="reloadPage()" data-bs-dismiss="modal" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
+                Update
+            </button>
+        </div>
+    </div>
+</div>
