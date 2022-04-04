@@ -309,3 +309,23 @@ export class ShowEmpComponent implements OnInit {
   }
 
 }
+
+
+// show-emp.component.ts
+  loadDepartmentList() {
+    this.service.getAllDepartmentNames().subscribe((data: any) => {
+      this.DepartmentList = data.reduce((acc:any, curr:any) => {
+        if(!acc[curr.Employee]) {
+          acc[curr.Employee] = [];
+        }
+        acc[curr.Department].push(curr);
+        return acc;
+      }, {});
+
+      this.EmployeeList = this.EmployeeList.map((item:any)=>{
+        item.dept = this.DepartmentList[item.DepartmentName];
+        return item;
+      })
+      console.log(this.EmployeeList)
+    });
+  }

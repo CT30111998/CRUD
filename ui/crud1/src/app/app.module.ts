@@ -20,9 +20,13 @@ import { FloDirDirective } from './dir/flo-dir.directive';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchBynamePipe } from './pipes/search-byname.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker'  
-import { MatNativeDateModule } from '@angular/material/core'  
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatDatepickerModule } from '@angular/material/datepicker';  
+import { MatNativeDateModule } from '@angular/material/core'  ;
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { DateFildDirective } from './dir/date-fild.directive';
+
+
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     PhoneFormatPipe,
     MyDiraectiveDirective,
     FloDirDirective,
-    SearchBynamePipe
+    SearchBynamePipe,
+    DateFildDirective,
   ],
   imports: [
     BrowserModule,
@@ -50,8 +55,9 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     MatDatepickerModule,  
     MatNativeDateModule,   
     MatFormFieldModule,  
+    BsDatepickerModule,
   ],
-  providers: [SharedService],
+  providers: [SharedService , BsDatepickerConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
