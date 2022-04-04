@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
+from . import forms
 
 from EmployeeApp.models import Departments,Employees
 from EmployeeApp.serializers import DepartmentSerializer,EmployeeSerializer
@@ -74,3 +75,6 @@ def SaveFile(request):
     file_name = default_storage.save(file.name, file)
 
     return JsonResponse(file_name, safe=False)
+
+#DataFlair #Form #View Functions
+

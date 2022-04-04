@@ -1,21 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
+import { DatePipe } from '@angular/common';
+import {FormControl, FormGroup} from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-show-emp',
   templateUrl: './show-emp.component.html',
-  styleUrls: ['./show-emp.component.css'],
+  styleUrls: ['./show-emp.component.css']
 })
 export class ShowEmpComponent implements OnInit {
-  constructor(private service: SharedService) {}
+
+  constructor(private service: SharedService) { }
 
   EmployeeList: any = [];
-  DepartmentsList: any = [];
+  DepartmentsList:any=[];
 
-  start: any;
-  end: any;
+  selected:any;
 
-  selected: any;
+  start_Date:any;
+  end_Date:any;
+  selectedUsers:any;
+  pipe: DatePipe | any;
 
   ModalTitle: any;
   ActivateAddEditEmpComp: boolean = false;
@@ -23,20 +30,23 @@ export class ShowEmpComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshEmpList();
+    
   }
-
+  
   public valueSelected() {
     this.DepartmentsList = this.DepartmentsList.DepartmentName.filter(
-      (item: any) => item.name === this.selected
+      (item:any) => item.name === this.selected
     );
   }
 
   //for gate data from databases
   refreshEmpList() {
-    this.service.getEmpList().subscribe((data) => {
+    this.service.getEmpList().subscribe(data => {
       this.loadDepartmentList();
       this.loadEmployee();
+      
       this.EmployeeList = data;
+      this.DateShort();
     });
   }
 
@@ -44,39 +54,39 @@ export class ShowEmpComponent implements OnInit {
   addClick() {
     this.emp = {
       EmployeeId: 0,
-      EmployeeName: '',
-      EmailId: '',
-      PhoneNo: '',
-      Department: '',
-      Salary: '',
-      DateOfJoining: '',
-      PhotoFileName: '',
-    };
-    this.ModalTitle = 'Add Employees';
+      EmployeeName: "",
+      EmailId: "",
+      PhoneNo: "",
+      Department: "",
+      Salary:"",
+      DateOfJoining: "",
+      PhotoFileName: "",
+    }
+    this.ModalTitle = "Add Employees";
     this.ActivateAddEditEmpComp = true;
   }
 
-  //load dept
+
+  //load dept 
   loadDepartmentList() {
     this.service.getAllDepartmentNames().subscribe((data: any) => {
       this.DepartmentsList = data;
-      console.log(this.DepartmentsList);
+      console.log(this.DepartmentsList)
     });
   }
 
   //for load Employee from database
-  loadEmployee() {
-    this.service.getEmpList().subscribe((data: any) => {
+  loadEmployee(){
+    this.service.getEmpList().subscribe((data:any)=>{
       this.EmployeeList = data;
-      console.log(this.EmployeeList);
-    });
+      console.log(this.EmployeeList)
+    })
   }
 
   //short by date logic
-  showdate(){
-    
-  }
+  DateShort(){
   
+}
 
   // loadEmp() {
   //   this.service.getEmpList().subscribe((data: any) => {
@@ -96,21 +106,22 @@ export class ShowEmpComponent implements OnInit {
   //   });
   // }
 
+
   //For Add in current Fild
   editClick(item: any) {
     console.log(item);
     this.emp = item;
-    this.ModalTitle = 'Edit Employee';
+    this.ModalTitle = "Edit Employee";
     this.ActivateAddEditEmpComp = true;
   }
 
   //for delete
   deleteClick(item: any) {
     if (confirm('Are you sure??')) {
-      this.service.deleteEmployee(item.EmployeeId).subscribe((data) => {
+      this.service.deleteEmployee(item.EmployeeId).subscribe(data => {
         alert(data.toString());
         this.refreshEmpList();
-      });
+      })
     }
   }
 
@@ -119,4 +130,8 @@ export class ShowEmpComponent implements OnInit {
     this.ActivateAddEditEmpComp = false;
     this.refreshEmpList();
   }
+
+
+
+
 }

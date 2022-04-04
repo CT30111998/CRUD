@@ -86,7 +86,7 @@
                 Add
             </button>
 
-            <button (click)="updateEmployee()" (click)="reloadPage()" data-bs-dismiss="modal" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
+            <button (click)="updateEmployee()" [disabled]="frgForm.invalid" (click)="reloadPage()" data-bs-dismiss="modal" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
                 Update
             </button>
         </div>
