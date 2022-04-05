@@ -11,7 +11,7 @@ import { ShowEmpComponent } from './employee/show-emp/show-emp.component';
 import { AddEditEmpComponent } from './employee/add-edit-emp/add-edit-emp.component';
 import { SharedService } from './shared.service';
 
-import { HttpClientModule } from  '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PhoneFormatPipe } from './pipes/phone-format.pipe';
@@ -20,13 +20,17 @@ import { FloDirDirective } from './dir/flo-dir.directive';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchBynamePipe } from './pipes/search-byname.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDatepickerModule } from '@angular/material/datepicker';  
-import { MatNativeDateModule } from '@angular/material/core'  ;
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import {
+  BsDatepickerModule,
+  BsDatepickerConfig,
+} from 'ngx-bootstrap/datepicker';
 import { DateFildDirective } from './dir/date-fild.directive';
-
-
+import { CustomRangeFilterPipe } from './pipes/custom-range-filter.pipe';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -43,6 +47,7 @@ import { DateFildDirective } from './dir/date-fild.directive';
     FloDirDirective,
     SearchBynamePipe,
     DateFildDirective,
+    CustomRangeFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -52,12 +57,14 @@ import { DateFildDirective } from './dir/date-fild.directive';
     ReactiveFormsModule,
     Ng2SearchPipeModule,
     BrowserAnimationsModule,
-    MatDatepickerModule,  
-    MatNativeDateModule,   
-    MatFormFieldModule,  
-    BsDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    BsDatepickerModule.forRoot(),
+    FilterPipeModule,
+    MatInputModule,
   ],
-  providers: [SharedService , BsDatepickerConfig],
-  bootstrap: [AppComponent]
+  providers: [SharedService, BsDatepickerConfig],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

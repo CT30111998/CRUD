@@ -331,3 +331,49 @@ export class ShowEmpComponent implements OnInit {
   }
 
   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
+
+
+  <div DateFildDirective  class="col-sm-3 float-right m-2">
+  <input type="text" ng-model="start_Date"  [(ngModel)]="endDate" name="enddate" placeholder="To Date" bsDatepicker class="form-control" />startdate
+</div>
+
+<div DateFildDirective class="col-sm-3 float-right m-2">
+  <input type="text" ng-model="end_Date" [(ngModel)]="startDate"   name="startdate" placeholder="From Date" bsDatepicker class="form-control" />
+</div>
+
+//template for date picker
+<div>
+  <div class="col-sm-3 float-right m-2">
+    <button type="submit" class="btn btn-success">Search</button>
+  </div>
+
+  <div class="col-sm-2 float-right m-2">
+    <input type="text" [(ngModel)]="endDate" name="enddate" placeholder="To Date" bsDatepicker class="form-control">
+  </div>
+  <div class="col-sm-2 float-right m-2">
+    <input type="text" [(ngModel)]="startDate" name="startdate" placeholder="Start Date" bsDatepicker
+      class="form-control">
+  </div>
+</div>
+
+
+
+
+// an odher one 
+<div class=" col-sm-2  float-right m-2" >  
+<mat-form-field>
+  <input matInput [matDatepicker]="dp3" placeholder="start Date" readonly [(ngModel)]="startDate"
+    (dateChange)="getDate(startDate)">
+  <mat-datepicker-toggle matSuffix [for]="dp3">
+    </mat-datepicker-toggle>
+    <mat-datepicker #dp3 disabled="false" [startAt]="startDate" startView="month"></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+  <input matInput [matDatepicker]="dp31" placeholder="end Date" readonly [(ngModel)]="endDate"
+    (dateChange)="getDate(endDate)">
+  <mat-datepicker-toggle matSuffix [for]="dp31">
+    </mat-datepicker-toggle>
+    <mat-datepicker #dp31 disabled="false" [startAt]="endDate" startView="month"></mat-datepicker>
+</mat-form-field>
+</div>

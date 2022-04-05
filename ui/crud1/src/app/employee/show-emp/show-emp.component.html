@@ -16,17 +16,12 @@
 </div>
 
 <!--  Filter By Date  -->
-<div DateFildDirective  class="col-sm-3 float-right m-2">
-  <input type="text" ng-model="start_Date" name="startdate" placeholder="To Date" bsDatepicker class="form-control" />
+<div class=" col-sm-3  float-right m-2">
+  <input [(ngModel)]="bsRangeValue" (ngModelChange)="dateFilterChanged($event)" placeholder="Any date"
+    class="form-control" #drp="bsDaterangepicker" bsDaterangepicker />
 </div>
 
-<div DateFildDirective class="col-sm-3 float-right m-2">
-  <input type="text" ng-model="end_Date" name="enddate" placeholder="From Date" bsDatepicker class="form-control" />
-</div>
 
-<div class="col-sm-3 float-right m-2">
-  <button type="submit" class="btn btn-success">Search</button>
-</div>
 
 
 <!-- Modal -->
@@ -64,7 +59,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr  *ngFor="let dataItem of EmployeeList | filter:selected  " >
+    <tr *ngFor="let dataItem of EmployeeList | filter:selected | customRangeFilter:bsRangeValue:bsRangeValue">
       <td>{{dataItem.EmployeeId}}</td>
       <td>{{dataItem.EmployeeName}}</td>
       <td>{{dataItem.EmailId}}</td>
