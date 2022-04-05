@@ -16,9 +16,10 @@
 </div>
 
 <!--  Filter By Date  -->
+
 <div class=" col-sm-3  float-right m-2">
-  <input [(ngModel)]="bsRangeValue" (ngModelChange)="dateFilterChanged($event)" placeholder="Any date"
-    class="form-control" #drp="bsDaterangepicker" bsDaterangepicker />
+  <input [(ngModel)]="bsRangeValue" (ngModelChange)="dateRangeCreated($event)" placeholder="Date" class="form-control"
+    #drp="bsDaterangepicker" bsDaterangepicker />
 </div>
 
 

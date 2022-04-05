@@ -9,7 +9,8 @@ export class CustomRangeFilterPipe implements PipeTransform {
 
     if (!arg1 || !arg2) {
       return value;
-    } else {
+    } 
+    else {
       let startDate = new Date(arg1);
       let endDate = new Date(arg2);
       console.log(arg1);
@@ -18,7 +19,7 @@ export class CustomRangeFilterPipe implements PipeTransform {
         (m: any) =>
           new Date(m.dateTime) >= startDate && new Date(m.dateTime) <= endDate
       );
-      console.log(a);
+      // console.log(a);
       return a;
     }
   }

@@ -64,7 +64,7 @@ export class ShowEmpComponent implements OnInit {
   loadDepartmentList() {
     this.service.getAllDepartmentNames().subscribe((data: any) => {
       this.DepartmentsList = data;
-      console.log(this.DepartmentsList);
+      // console.log(this.DepartmentsList);
     });
   }
 
@@ -72,34 +72,33 @@ export class ShowEmpComponent implements OnInit {
   loadEmployee() {
     this.service.getEmpList().subscribe((data: any) => {
       this.EmployeeList = data;
-      console.log(this.EmployeeList);
+      // console.log(this.EmployeeList);
     });
   }
 
   //short by date logic
-  dateFilterChanged(bsRangeValue: string) {
-    // console.log('filterValue', bsRangeValue);
-    const startDate = new Date(bsRangeValue[0]);
-    const endDate = new Date(bsRangeValue[1]);
-    // console.log(startDate, 'dd-MM-yyyy');
-    // console.log(endDate, 'dd-MM-yyyy');
-  }
-
-  // dateRangeCreated($event:any) {
-  //   this.EmployeeList = this.EmployeeList;
-
-  //   let startDate = $event[0].toJSON().split('T')[0];
-
-  //   let endDate = $event[1].toJSON().split('T')[0];
-
-  //   this.EmployeeList = this.EmployeeList.filter(
-  //     (m:any) =>
-  //       new Date(m.CreatedDate) >= new Date(startDate) &&
-  //       new Date(m.CreatedDate) <= new Date(endDate)
-  //   );
-  //   console.log(startDate)
-  //   console.log(endDate)
+  // dateFilterChanged(bsRangeValue: string) {
+  //   // console.log('filterValue', bsRangeValue);
+  //   const startDate = new Date(bsRangeValue[0]);
+  //   const endDate = new Date(bsRangeValue[1]);
+  //   // console.log(startDate, 'dd-MM-yyyy');
+  //   // console.log(endDate, 'dd-MM-yyyy');
   // }
+
+  dateRangeCreated($event:any) {
+
+    let startDate = $event[0].toJSON().split('T')[0];
+
+    let endDate = $event[1].toJSON().split('T')[0];
+
+    this.EmployeeList = this.EmployeeList.filter(
+      (m:any) =>
+        new Date(m.CreatedDate) >= new Date(startDate) &&
+        new Date(m.CreatedDate) <= new Date(endDate)
+    );
+    console.log(startDate)
+    console.log(endDate)
+  }
 
   // reverseAndTimeStamp(dateString: any) {
   //   const reverse = new Date(dateString.split('-').reverse().join('-'));
@@ -132,6 +131,7 @@ export class ShowEmpComponent implements OnInit {
   //   });
   // }
 
+  
   //For Add in current Fild
   editClick(item: any) {
     console.log(item);
