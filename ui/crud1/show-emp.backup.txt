@@ -16,13 +16,7 @@
 </div>
 
 <!--  Filter By Date  -->
-
-<div class=" col-sm-3  float-right m-2">
-  <input (ngModelChange)="dateRangeCreated($event)" placeholder="Date" class="form-control"
-    #drp="bsDaterangepicker" bsDaterangepicker />
-</div>
-
-<!-- <form class="date-block" [formGroup]="filterForm">
+<form class="date-block" [formGroup]="filterForm">
   <div class="date-block__list">
     <mat-form-field>
       <input
@@ -50,7 +44,7 @@
   <button mat-button color="primary" class="primary" (click)="applyFilter()">
     Submit
   </button>
-</form> -->
+</form>
 
 
 
@@ -75,15 +69,14 @@
 </div>
 
 
-<!-- 
+
 <table
   #filteredTable
   mat-table
   [dataSource]="dataSource"
   class="mat-elevation-z8"
 >
- 
-
+  <!-- Position Column -->
   <ng-container matColumnDef="EmployeeId">
     <th mat-header-cell *matHeaderCellDef>EmployeeId.</th>
     <tr *ngFor="let dataItem of EmployeeList">
@@ -91,7 +84,7 @@
     </tr>
   </ng-container>
 
-
+  <!-- Name Column -->
   <ng-container matColumnDef="EmployeeName">
     <th mat-header-cell *matHeaderCellDef>EmployeeName</th>
     <tr *ngFor="let dataItem of EmployeeList">
@@ -99,6 +92,7 @@
     </tr>
   </ng-container>
 
+  <!-- Weight Column -->
   <ng-container matColumnDef="EmailId">
     <th mat-header-cell *matHeaderCellDef>EmailId</th>
     <tr *ngFor="let dataItem of EmployeeList">
@@ -106,10 +100,26 @@
     </tr>
   </ng-container>
 
+  <!-- Symbol Column -->
   <ng-container matColumnDef="PhoneNo">
     <th mat-header-cell *matHeaderCellDef>PhoneNo</th>
     <tr *ngFor="let dataItem of EmployeeList">
       <td>{{dataItem.PhoneNo}}</td>
+    </tr>
+  </ng-container>
+
+  <!-- Founded Column -->
+  <ng-container matColumnDef="DateOfJoining">
+    <th mat-header-cell *matHeaderCellDef>DateOfJoining</th>
+    <tr *ngFor="let dataItem of EmployeeList">
+      <td>{{dataItem.DateOfJoining}}</td>
+    </tr>
+  </ng-container>
+
+  <ng-container matColumnDef="EmpSalary">
+    <th mat-header-cell *matHeaderCellDef>EmpSalary</th>
+    <tr *ngFor="let dataItem of EmployeeList">
+      <td>{{dataItem.EmpSalary}}</td>
     </tr>
   </ng-container>
 
@@ -120,53 +130,7 @@
     </tr>
   </ng-container>
 
-  <ng-container matColumnDef="Salary">
-    <th mat-header-cell *matHeaderCellDef>Salary</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.Salary}}</td>
-    </tr>
-  </ng-container>
-
-  <ng-container matColumnDef="founded">
-    <th mat-header-cell *matHeaderCellDef>DateOfJoining</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.DateOfJoining |  date: 'dd/MM/yyyy'}}</td>
-    </tr>
-  </ng-container>
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table> -->
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>EmployeeId</th>
-      <th>EmployeeName</th>
-      <th>Email ID</th>
-      <th>Mobile No</th>
-      <th>Department</th>
-      <th>Salary</th>
-      <th>DateOfJoining</th>
-      <th>Options</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let dataItem of EmployeeList | filter:selected ">
-      <td>{{dataItem.EmployeeId}}</td>
-      <td>{{dataItem.EmployeeName}}</td>
-      <td>{{dataItem.EmailId}}</td>
-      <td> {{dataItem.PhoneNo}} </td>
-      <td>{{dataItem.Department}}</td>
-      <td>{{dataItem.EmpSalary}}</td>
-      <td>{{dataItem.DateOfJoining}}</td>
-      <td>
-        <button type="button" class="btn btn-primary mr-1" data-toggle="modal" data-target="#exampleModal"
-          (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">Edit
-        </button>
-        <button type="button" class="btn btn-danger mr-1" (click)="deleteClick(dataItem)">DELETE
-        </button>
-      </td>
-    </tr>
-  </tbody>
 </table>
+

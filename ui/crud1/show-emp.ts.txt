@@ -9,48 +9,65 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './show-emp.component.html',
   styleUrls: ['./show-emp.component.css'],
 })
-
 export class ShowEmpComponent implements OnInit {
-
-  EmployeeList: any = [];
-  
-  displayedColumns: string[] = ['EmployeeId', 'EmployeeName', 'EmailId', 'PhoneNo', 'Department', 'Salary','founded'];
-
-  dataSource = new MatTableDataSource(this.EmployeeList);
-  pipe: DatePipe;
-  
   
 
-  filterForm = new FormGroup({
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
-  });
-  
   constructor(private service: SharedService) {
     this.pipe = new DatePipe('en');
-    this.dataSource.filterPredicate = (data:any, _filter) => {
+    this.dataSource.filterPredicate = (data:any, filter:any) => {
       if (this.fromDate && this.toDate) {
         return data.created >= this.fromDate && data.created <= this.toDate;
       }
       return true;
     };
   }
+
+  applyFilter() {
+    this.dataSource.filter = '' + Math.random();
+    console.log(this.dataSource)
+  }
+
+  EmployeeList: any = [];
+  DepartmentsList: any = [];
+
+  displayedColumns: string[] = [
+    'EmployeeId',
+    'EmailId',
+    'PhoneNo',
+    'EmpSalary',
+    'EmployeeName',
+    'Department',
+    'DateOfJoining',
+  ];
+
+  loadEmployee() {
+    this.service.getEmpList().subscribe((data: any) => {
+      this.EmployeeList = data;
+      console.log(this.EmployeeList);
+      
+    });
+  }
+  dataSource = new MatTableDataSource(this.EmployeeList);
+  pipe: DatePipe | undefined;
+
+  filterForm = new FormGroup({
+    fromDate: new FormControl(),
+    toDate: new FormControl(),
+  });
+
   get fromDate() {
     return this.filterForm.get('fromDate')?.value;
   }
+
   get toDate() {
     return this.filterForm.get('toDate')?.value;
   }
-  
- 
-  DepartmentsList: any = [];
 
   selected: any;
-  
+  bsRangeValue: any;
   startDate: any;
   endDate: any;
-  selectedMembers:any;
-  mydate:any;
+  selectedMembers: any;
 
   ModalTitle: any;
   ActivateAddEditEmpComp: boolean = false;
@@ -58,7 +75,6 @@ export class ShowEmpComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshEmpList();
-    
   }
 
   public valueSelected() {
@@ -72,7 +88,6 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data) => {
       this.loadDepartmentList();
       this.loadEmployee();
-      this.addFilter()
       // this.dateFilterChanged(this.EmployeeList);
       this.EmployeeList = data;
     });
@@ -103,12 +118,12 @@ export class ShowEmpComponent implements OnInit {
   }
 
   //for load Employee from database
-  loadEmployee() {
-    this.service.getEmpList().subscribe((data: any) => {
-      this.EmployeeList = data;
-      // console.log(this.EmployeeList);
-    });
-  }
+  // loadEmployee() {
+  //   this.service.getEmpList().subscribe((data: any) => {
+  //     this.EmployeeList = data;
+  //     // console.log(this.EmployeeList);
+  //   });
+  // }
 
   //short by date logic
   // dateFilterChanged(bsRangeValue: string) {
@@ -129,27 +144,23 @@ export class ShowEmpComponent implements OnInit {
         new Date(m.CreatedDate) >= new Date(startDate) &&
         new Date(m.CreatedDate) <= new Date(endDate)
     );
-    console.log(this.selectedMembers)
+    console.log(this.selectedMembers);
     console.log(startDate);
     console.log(endDate);
   }
 
+  // reverseAndTimeStamp(dateString: any) {
+  //   const reverse = new Date(dateString.split('-').reverse().join('-'));
+  //   return reverse.getTime();
+  // }
 
-  applyFilter() {
-    this.dataSource.filter = '' + Math.random();
-    // console.log(this.dataSource)
-    console.log(this.EmployeeList)
-    
-  }
+  // selectedMembers = this.EmployeeList.filter((m:any) => {
+  //   return (
+  //     this.reverseAndTimeStamp(m.date) > this.reverseAndTimeStamp(this.startDate) &&
+  //     this.reverseAndTimeStamp(m.date) < this.reverseAndTimeStamp(this.endDate)
+  //   );
 
-  addFilter(){
-    this.service.getEmpList().subscribe((data: any) => {
-      this.mydate = data.filter(function(Employee1:any){
-        return Employee1.DateOfJoining == '2022-03-12'
-      });
-      console.log(this.mydate);
-    });
-  }
+  // });
 
   // loadEmp() {
   //   this.service.getEmpList().subscribe((data: any) => {

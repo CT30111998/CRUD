@@ -31,6 +31,10 @@ import { DateFildDirective } from './dir/date-fild.directive';
 import { CustomRangeFilterPipe } from './pipes/custom-range-filter.pipe';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { DataTablesModule } from 'angular-datatables';
+import { Daterangepicker } from 'ng2-daterangepicker';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +67,9 @@ import { MatInputModule } from '@angular/material/input';
     BsDatepickerModule.forRoot(),
     FilterPipeModule,
     MatInputModule,
+    MatTableModule,
+    DataTablesModule,
+    Daterangepicker
   ],
   providers: [SharedService, BsDatepickerConfig],
   bootstrap: [AppComponent],
