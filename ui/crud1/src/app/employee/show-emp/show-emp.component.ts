@@ -1,56 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-import { DatePipe } from '@angular/common';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-show-emp',
   templateUrl: './show-emp.component.html',
   styleUrls: ['./show-emp.component.css'],
 })
-
 export class ShowEmpComponent implements OnInit {
-
   EmployeeList: any = [];
-  
-  displayedColumns: string[] = ['EmployeeId', 'EmployeeName', 'EmailId', 'PhoneNo', 'Department', 'Salary','founded'];
 
-  dataSource = new MatTableDataSource(this.EmployeeList);
-  pipe: DatePipe;
-  
-  
+  constructor(private service: SharedService) {}
 
-  filterForm = new FormGroup({
-    fromDate: new FormControl(),
-    toDate: new FormControl(),
-  });
-  
-  constructor(private service: SharedService) {
-    this.pipe = new DatePipe('en');
-    this.dataSource.filterPredicate = (data:any, _filter) => {
-      if (this.fromDate && this.toDate) {
-        return data.created >= this.fromDate && data.created <= this.toDate;
-      }
-      return true;
-    };
-  }
-  get fromDate() {
-    return this.filterForm.get('fromDate')?.value;
-  }
-  get toDate() {
-    return this.filterForm.get('toDate')?.value;
-  }
-  
- 
   DepartmentsList: any = [];
 
   selected: any;
-  
+
   startDate: any;
-  endDate: any;
-  selectedMembers:any;
-  mydate:any;
+  selectedMembers: any;
+  mydate: any;
 
   ModalTitle: any;
   ActivateAddEditEmpComp: boolean = false;
@@ -58,7 +25,6 @@ export class ShowEmpComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshEmpList();
-    
   }
 
   public valueSelected() {
@@ -72,7 +38,6 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data) => {
       this.loadDepartmentList();
       this.loadEmployee();
-      this.addFilter()
       // this.dateFilterChanged(this.EmployeeList);
       this.EmployeeList = data;
     });
@@ -102,54 +67,26 @@ export class ShowEmpComponent implements OnInit {
     });
   }
 
-  //for load Employee from database
+  // for load Employee from database
   loadEmployee() {
     this.service.getEmpList().subscribe((data: any) => {
       this.EmployeeList = data;
-      // console.log(this.EmployeeList);
+      this.mydate = data;
+      console.log(this.EmployeeList);
     });
   }
 
-  //short by date logic
-  // dateFilterChanged(bsRangeValue: string) {
-  //   // console.log('filterValue', bsRangeValue);
-  //   const startDate = new Date(bsRangeValue[0]);
-  //   const endDate = new Date(bsRangeValue[1]);
-  //   // console.log(startDate, 'dd-MM-yyyy');
-  //   // console.log(endDate, 'dd-MM-yyyy');
-  // }
-
-  dateRangeCreated($event: any) {
-    let startDate = $event[0].toJSON().split('T')[0];
-
-    let endDate = $event[1].toJSON().split('T')[0];
-
-    this.selectedMembers = this.EmployeeList.filter(
-      (m: any) =>
-        new Date(m.CreatedDate) >= new Date(startDate) &&
-        new Date(m.CreatedDate) <= new Date(endDate)
-    );
-    console.log(this.selectedMembers)
-    console.log(startDate);
-    console.log(endDate);
-  }
-
-
-  applyFilter() {
-    this.dataSource.filter = '' + Math.random();
-    // console.log(this.dataSource)
-    console.log(this.EmployeeList)
-    
-  }
-
-  addFilter(){
-    this.service.getEmpList().subscribe((data: any) => {
-      this.mydate = data.filter(function(Employee1:any){
-        return Employee1.DateOfJoining == '2022-03-12'
-      });
-      console.log(this.mydate);
+  //*************static way to filter date****************
+  SendDataonChange(event: any) {
+    this.mydate = this.EmployeeList.filter(function (Employee1: any) {
+      return Employee1.DateOfJoining == event.target.value;
     });
+    console.log(this.mydate);
+    console.log(event.target.value);
   }
+  reloadPage() {
+    window.location.reload();
+ }
 
   // loadEmp() {
   //   this.service.getEmpList().subscribe((data: any) => {

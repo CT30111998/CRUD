@@ -2,7 +2,7 @@
 
 
 <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal"
-  (click)="addClick()" data-backdrop="static" data-keyboard="false">
+  (click)="addClick()"  data-backdrop="static" data-keyboard="false">
   Add Employee
 </button>
 
@@ -18,39 +18,9 @@
 <!--  Filter By Date  -->
 
 <div class=" col-sm-3  float-right m-2">
-  <input (ngModelChange)="dateRangeCreated($event)" placeholder="Date" class="form-control"
-    #drp="bsDaterangepicker" bsDaterangepicker />
+  <input (change)="SendDataonChange($event)" type="date" placeholder="Date" class="form-control"/>
 </div>
 
-<!-- <form class="date-block" [formGroup]="filterForm">
-  <div class="date-block__list">
-    <mat-form-field>
-      <input
-        matInput
-        [matDatepicker]="fromDate"
-        placeholder="From Date"
-        formControlName="fromDate"
-      />
-      <mat-datepicker-toggle matSuffix [for]="fromDate"></mat-datepicker-toggle>
-      <mat-datepicker #fromDate></mat-datepicker>
-    </mat-form-field>
-  </div>
-  <div class="date-block__list">
-    <mat-form-field>
-      <input
-        matInput
-        [matDatepicker]="toDate"
-        placeholder="To Date"
-        formControlName="toDate"
-      />
-      <mat-datepicker-toggle matSuffix [for]="toDate"></mat-datepicker-toggle>
-      <mat-datepicker #toDate></mat-datepicker>
-    </mat-form-field>
-  </div>
-  <button mat-button color="primary" class="primary" (click)="applyFilter()">
-    Submit
-  </button>
-</form> -->
 
 
 
@@ -74,70 +44,6 @@
   </div>
 </div>
 
-
-<!-- 
-<table
-  #filteredTable
-  mat-table
-  [dataSource]="dataSource"
-  class="mat-elevation-z8"
->
- 
-
-  <ng-container matColumnDef="EmployeeId">
-    <th mat-header-cell *matHeaderCellDef>EmployeeId.</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.EmployeeId}}</td>
-    </tr>
-  </ng-container>
-
-
-  <ng-container matColumnDef="EmployeeName">
-    <th mat-header-cell *matHeaderCellDef>EmployeeName</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.EmployeeName}}</td>
-    </tr>
-  </ng-container>
-
-  <ng-container matColumnDef="EmailId">
-    <th mat-header-cell *matHeaderCellDef>EmailId</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.EmailId}}</td>
-    </tr>
-  </ng-container>
-
-  <ng-container matColumnDef="PhoneNo">
-    <th mat-header-cell *matHeaderCellDef>PhoneNo</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.PhoneNo}}</td>
-    </tr>
-  </ng-container>
-
-  <ng-container matColumnDef="Department">
-    <th mat-header-cell *matHeaderCellDef>Department</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.Department}}</td>
-    </tr>
-  </ng-container>
-
-  <ng-container matColumnDef="Salary">
-    <th mat-header-cell *matHeaderCellDef>Salary</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.Salary}}</td>
-    </tr>
-  </ng-container>
-
-  <ng-container matColumnDef="founded">
-    <th mat-header-cell *matHeaderCellDef>DateOfJoining</th>
-    <tr *ngFor="let dataItem of EmployeeList">
-      <td>{{dataItem.DateOfJoining |  date: 'dd/MM/yyyy'}}</td>
-    </tr>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table> -->
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -152,7 +58,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let dataItem of EmployeeList | filter:selected ">
+    <tr *ngFor="let dataItem of mydate | filter:selected ">
       <td>{{dataItem.EmployeeId}}</td>
       <td>{{dataItem.EmployeeName}}</td>
       <td>{{dataItem.EmailId}}</td>
