@@ -6,6 +6,11 @@
   Add Employee
 </button>
 
+<form class="form-inline float-right m-2">
+  <input class="form-control mr-sm-2"  [(ngModel)]="search1"  name="first" type="search" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchEmp(search1)"  type="submit">Search</button>
+</form>
+
 <div class=" col-sm-2  float-right m-2">
   <select class="form-control" [(ngModel)]="selected" (change)="valueSelected">
     <option value="">--Select--</option>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
 import { SharedService } from 'src/app/shared.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-show-emp',
@@ -9,11 +11,12 @@ import { SharedService } from 'src/app/shared.service';
 export class ShowEmpComponent implements OnInit {
   EmployeeList: any = [];
 
-  constructor(private service: SharedService) {}
+  constructor(private service: SharedService, private http: HttpClient) {}
 
   DepartmentsList: any = [];
 
   selected: any;
+  search1:any;
 
   startDate: any;
   selectedMembers: any;
@@ -72,8 +75,17 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data: any) => {
       this.EmployeeList = data;
       this.mydate = data;
-      console.log(this.EmployeeList);
+      // console.log(this.EmployeeList);
     });
+  }
+
+  //**********search from data base*************
+  
+  searchEmp(search:any){
+   this.service.searchEmployee(search).subscribe((data:any)=>{
+     this.mydate = data
+   })
+    console.log(search);
   }
 
   //*************static way to filter date****************
@@ -84,9 +96,6 @@ export class ShowEmpComponent implements OnInit {
     console.log(this.mydate);
     console.log(event.target.value);
   }
-  reloadPage() {
-    window.location.reload();
- }
 
   // loadEmp() {
   //   this.service.getEmpList().subscribe((data: any) => {
