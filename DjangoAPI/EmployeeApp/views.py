@@ -45,15 +45,15 @@ def departmentApi(request,id=0):
 
 @csrf_exempt
 def employeeApi(request, id=0):
+    if request.method == 'GET':
+        filterset = employeeFilter(request.GET, queryset=Employees.objects.all())
+        if not filterset.is_valid():
+            raise translate_validation(filterset.errors)
+        # employees = Employees.objects.all()
+        employees_serializer = EmployeeSerializer(filterset.qs, many=True)
+        return JsonResponse(employees_serializer.data, safe=False)
 
-    filterset = employeeFilter(request.GET, queryset=Employees.objects.all())
-    if not filterset.is_valid():
-        raise translate_validation(filterset.errors)
-    # employees = Employees.objects.all()
-    employees_serializer = EmployeeSerializer(filterset.qs, many=True)
-    return JsonResponse(employees_serializer.data, safe=False)
-
-    if request.method == 'POST':
+    elif request.method == 'POST':
         employee_data = JSONParser().parse(request)
         employee_serializer = EmployeeSerializer(data=employee_data)
         if employee_serializer.is_valid():

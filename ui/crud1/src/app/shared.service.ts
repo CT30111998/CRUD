@@ -30,7 +30,7 @@ export class SharedService {
   }
 
   getEmpList(): Observable<any[]> {
-    return this.http.get<any[]>(this.APIUrl + '/employee/?EmployeeName=');
+    return this.http.get<any[]>(this.APIUrl + '/employee/');
   }
 
   // searchEmployee():Observable<any[]>{
