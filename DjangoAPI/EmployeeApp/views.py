@@ -12,6 +12,7 @@ from django.core.files.storage import default_storage
 
 # Create your views here.
 from .filters import employeeFilter
+from .paginations import MyPagination
 
 
 @csrf_exempt
@@ -46,6 +47,7 @@ def departmentApi(request,id=0):
 @csrf_exempt
 def employeeApi(request, id=0):
     if request.method == 'GET':
+        paginator = MyPagination()
         filterset = employeeFilter(request.GET, queryset=Employees.objects.all())
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)

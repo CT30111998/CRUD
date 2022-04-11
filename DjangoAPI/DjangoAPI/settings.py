@@ -46,12 +46,11 @@ INSTALLED_APPS = [
     'rest_framework'
 ]
 
-
+# change default pagination class to you custom class
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 2
+    'PAGE_SIZE': 100
 }
-
 
 CORS_ORIGIN_ALLOW_ALL = True
 
