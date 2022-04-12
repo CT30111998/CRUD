@@ -62,4 +62,13 @@ export class SharedService {
       `/employee/?EmployeeName=${search_text}`
     );
   }
+
+  paginationEmplInc(page:any){
+    return this.http.get<any[]>(this.APIUrl+`/employee/?page=2`);
+  }
+
+  paginationEmplDes(page:any){
+    return this.http.get<any[]>(this.APIUrl+`/employee/?page=1`);
+  }
+
 }

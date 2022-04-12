@@ -18,6 +18,8 @@ export class ShowEmpComponent implements OnInit {
   selected: any;
   search1:any;
 
+  page:any;
+
   startDate: any;
   selectedMembers: any;
   mydate: any;
@@ -75,7 +77,7 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data: any) => {
       this.EmployeeList = data;
       this.mydate = data;
-      // console.log(this.EmployeeList);
+      console.log(this.EmployeeList);
     });
   }
 
@@ -95,6 +97,19 @@ export class ShowEmpComponent implements OnInit {
     });
     console.log(this.mydate);
     console.log(event.target.value);
+  }
+
+  //************Pagination For emp */******************& */
+  paginationInc(page: any){
+    this.service.paginationEmplInc(page).subscribe((data:any)=>{
+      this.mydate = data
+    })
+  }
+
+  paginationincDec(page: any){
+    this.service.paginationEmplDes(page).subscribe((data:any)=>{
+      this.mydate = data
+    })
   }
 
   // loadEmp() {

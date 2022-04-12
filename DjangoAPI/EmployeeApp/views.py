@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django_filters.utils import translate_validation
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
 from django.http.response import JsonResponse
 from . import forms
 
@@ -45,15 +46,27 @@ def departmentApi(request,id=0):
         return JsonResponse("Deleted Succeffully!!", safe=False)
 
 @csrf_exempt
+@api_view(["GET"])
 def employeeApi(request, id=0):
     if request.method == 'GET':
         paginator = MyPagination()
+        query_set = Employees.objects.all()
+        context = paginator.paginate_queryset(query_set, request)
         filterset = employeeFilter(request.GET, queryset=Employees.objects.all())
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)
-        # employees = Employees.objects.all()
         employees_serializer = EmployeeSerializer(filterset.qs, many=True)
-        return JsonResponse(employees_serializer.data, safe=False)
+        serializer = EmployeeSerializer(context, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    # @api_view(['GET', ])
+    # def employeeApi(request, id=0):
+    #     if request.method == 'GET':
+    #         paginator = MyPagination()
+    #         query_set = Employees.objects.all()
+    #         context = paginator.paginate_queryset(query_set, request)
+    #         serializer = EmployeeSerializer(context, many=True)
+    #         return paginator.get_paginated_response(serializer.data)
 
     elif request.method == 'POST':
         employee_data = JSONParser().parse(request)

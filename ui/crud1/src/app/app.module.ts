@@ -34,6 +34,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { DataTablesModule } from 'angular-datatables';
 import { Daterangepicker } from 'ng2-daterangepicker';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { Daterangepicker } from 'ng2-daterangepicker';
     MatInputModule,
     MatTableModule,
     DataTablesModule,
-    Daterangepicker
+    Daterangepicker,
+    NgxPaginationModule
   ],
   providers: [SharedService, BsDatepickerConfig],
   bootstrap: [AppComponent],
