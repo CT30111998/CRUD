@@ -17,6 +17,7 @@ import {
 })
 export class ShowEmpComponent implements OnInit {
   formGrp!: FormGroup;
+  no=0;
 
   EmployeeList: any = [];
 
@@ -29,6 +30,7 @@ export class ShowEmpComponent implements OnInit {
       collection: this.fb.array([]),
     });
   }
+  
 
   DepartmentsList: any = [];
 
@@ -62,6 +64,7 @@ export class ShowEmpComponent implements OnInit {
       (item: any) => item.name === this.selected
     );
   }
+  
 
   //for gate data from databases
   refreshEmpList() {
@@ -104,9 +107,11 @@ export class ShowEmpComponent implements OnInit {
       this.EmployeeList = data;
       this.mydate = data;
       this.formGrp = data;
-      // console.log(this.EmployeeList);
+      console.log(this.EmployeeList);
     });
   }
+
+
 
   //**********for FormArray *********** */
   addCullection() {

@@ -53,6 +53,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>No.</th>
         <th>EmployeeId</th>
         <th>EmployeeName</th>
         <th>Email ID</th>
@@ -64,7 +65,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dataItem of mydate | filter:selected "> <!-- paginate: { itemsPerPage: 10, currentPage: p }-->
+      <tr *ngFor="let dataItem of mydate | filter:selected;let i=index"> <!-- paginate: { itemsPerPage: 10, currentPage: p }-->
+        <td>{{i+1}}</td>
         <td>{{dataItem.EmployeeId}}</td>
         <td>{{dataItem.EmployeeName}}</td>
         <td>{{dataItem.EmailId}}</td>
