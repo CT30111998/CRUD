@@ -46,18 +46,18 @@ def departmentApi(request,id=0):
         return JsonResponse("Deleted Succeffully!!", safe=False)
 
 @csrf_exempt
-@api_view(["GET"])
+# @api_view(["GET"])
 def employeeApi(request, id=0):
     if request.method == 'GET':
         paginator = MyPagination()
         query_set = Employees.objects.all()
-        context = paginator.paginate_queryset(query_set, request)
+        # context = paginator.paginate_queryset(query_set, request)
         filterset = employeeFilter(request.GET, queryset=Employees.objects.all())
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)
         employees_serializer = EmployeeSerializer(filterset.qs, many=True)
-        serializer = EmployeeSerializer(context, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        # serializer = EmployeeSerializer(context, many=True)
+        return JsonResponse(employees_serializer.data, safe=False)
 
     # @api_view(['GET', ])
     # def employeeApi(request, id=0):

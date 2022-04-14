@@ -64,11 +64,12 @@ export class SharedService {
   }
 
   paginationEmplInc(page:any){
-    return this.http.get<any[]>(this.APIUrl+`/employee/?page=2`);
+    return this.http.get<any[]>(this.APIUrl+`/employee/?page=${page}`);
   }
 
   paginationEmplDes(page:any){
     return this.http.get<any[]>(this.APIUrl+`/employee/?page=1`);
   }
+  
 
 }

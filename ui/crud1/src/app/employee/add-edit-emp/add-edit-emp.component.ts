@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SharedService } from 'src/app/shared.service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators,FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-emp',
@@ -10,6 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class AddEditEmpComponent implements OnInit {
 
   submit = false;
+  picker:any;
   constructor(private service: SharedService) { }
 
   EmployeeName = new FormControl('', [Validators.required, Validators.minLength(2)]);
@@ -43,11 +44,15 @@ export class AddEditEmpComponent implements OnInit {
   ngOnInit(): void {
     this.loadDepartmentList();
   }
+  closePicker() {
+    this.picker.cancel();
+  }
+
 
   loadDepartmentList() {
     this.service.getAllDepartmentNames().subscribe((data: any) => {
       this.DepartmentsList = data;
-      console.log(this.emp);
+      // console.log(this.emp);
       this.frgForm.patchValue(this.emp);
       this.EmployeeId = this.emp.EmployeeId;
       this.PhotoFileName = this.emp.PhotoFileName;
@@ -69,7 +74,7 @@ export class AddEditEmpComponent implements OnInit {
 
       alert(res.toString());
     });
-  }
+  } 
 
   get f() { return this.frgForm.controls; }
 
@@ -83,7 +88,7 @@ export class AddEditEmpComponent implements OnInit {
       ...this.frgForm.value,
       PhotoFileName: this.PhotoFileName
     };
-
+    console.log(this.DateOfJoining);
     this.service.updateEmployee(val).subscribe(res => {
       alert(res.toString());
     });

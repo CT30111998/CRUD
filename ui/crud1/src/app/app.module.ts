@@ -34,8 +34,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { DataTablesModule } from 'angular-datatables';
 import { Daterangepicker } from 'ng2-daterangepicker';
-import {NgxPaginationModule} from 'ngx-pagination';
-
+import { NgxPaginationModule } from 'ngx-pagination';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule
+} from '@angular-material-components/datetime-picker';
+import { DatePipePipe } from './pipes/date-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -53,6 +58,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     SearchBynamePipe,
     DateFildDirective,
     CustomRangeFilterPipe,
+    DatePipePipe,
   ],
   imports: [
     BrowserModule,
@@ -71,8 +77,13 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatTableModule,
     DataTablesModule,
     Daterangepicker,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
+
   ],
+
   providers: [SharedService, BsDatepickerConfig],
   bootstrap: [AppComponent],
 })

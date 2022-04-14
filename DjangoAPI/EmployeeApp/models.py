@@ -15,7 +15,7 @@ class Employees(models.Model):
     EmpSalary = models.FloatField(null=True)
     EmployeeName = models.CharField(max_length=100)
     Department = models.CharField(max_length=100)
-    DateOfJoining = models.DateField()
+    DateOfJoining = models.DateTimeField()
     PhotoFileName = models.CharField(max_length=100)
     def __str__(self):
         return self.EmployeeName

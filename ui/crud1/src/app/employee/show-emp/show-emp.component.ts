@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { data } from 'jquery';
 import { SharedService } from 'src/app/shared.service';
 import { HttpClient } from '@angular/common/http';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-show-emp',
@@ -9,16 +16,27 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./show-emp.component.css'],
 })
 export class ShowEmpComponent implements OnInit {
+  formGrp!: FormGroup;
+
   EmployeeList: any = [];
 
-  constructor(private service: SharedService, private http: HttpClient) {}
+  constructor(
+    private service: SharedService,
+    private http: HttpClient,
+    private fb: FormBuilder
+  ) {
+    this.formGrp = this.fb.group({
+      collection: this.fb.array([]),
+    });
+  }
 
   DepartmentsList: any = [];
 
   selected: any;
-  search1:any;
+  search1: any;
 
-  page:any;
+  page: any;
+  p: any;
 
   startDate: any;
   selectedMembers: any;
@@ -32,6 +50,13 @@ export class ShowEmpComponent implements OnInit {
     this.refreshEmpList();
   }
 
+
+  // const collection = this.mydate.get('collection');
+  // if (!collection.value.includes(val)) {
+  //   collection.push(this.fb.control(val));
+  // }
+  // console.log(collection);
+
   public valueSelected() {
     this.DepartmentsList = this.DepartmentsList.DepartmentName.filter(
       (item: any) => item.name === this.selected
@@ -43,6 +68,7 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data) => {
       this.loadDepartmentList();
       this.loadEmployee();
+      this.addCullection();
       // this.dateFilterChanged(this.EmployeeList);
       this.EmployeeList = data;
     });
@@ -77,17 +103,27 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data: any) => {
       this.EmployeeList = data;
       this.mydate = data;
-      console.log(this.EmployeeList);
+      this.formGrp = data;
+      // console.log(this.EmployeeList);
     });
   }
 
-  //**********search from data base*************
+  //**********for FormArray *********** */
+  addCullection() {
+    this.service.getEmpList().subscribe((collection: any) => {
+      this.formGrp = collection
+    });
+    console.log(this.formGrp.value)
+  }
   
-  searchEmp(search:any){
-   this.service.searchEmployee(search).subscribe((data:any)=>{
-     this.mydate = data
-   })
-    console.log(search);
+
+  //**********search from data base*************
+
+  searchEmp(search: any) {
+    this.service.searchEmployee(search).subscribe((data: any) => {
+      this.mydate = data;
+    });
+    // console.log(search);
   }
 
   //*************static way to filter date****************
@@ -95,21 +131,22 @@ export class ShowEmpComponent implements OnInit {
     this.mydate = this.EmployeeList.filter(function (Employee1: any) {
       return Employee1.DateOfJoining == event.target.value;
     });
-    console.log(this.mydate);
-    console.log(event.target.value);
+    // console.log(this.mydate);
+    // console.log(event.target.value);
   }
 
   //************Pagination For emp */******************& */
-  paginationInc(page: any){
-    this.service.paginationEmplInc(page).subscribe((data:any)=>{
-      this.mydate = data
-    })
+  paginationInc(page: any) {
+    this.service.paginationEmplInc(page).subscribe((data: any) => {
+      this.mydate = data;
+    });
+    // console.log(page)
   }
 
-  paginationincDec(page: any){
-    this.service.paginationEmplDes(page).subscribe((data:any)=>{
-      this.mydate = data
-    })
+  paginationincDec(page: any) {
+    this.service.paginationEmplDes(page).subscribe((data: any) => {
+      this.mydate = data;
+    });
   }
 
   // loadEmp() {

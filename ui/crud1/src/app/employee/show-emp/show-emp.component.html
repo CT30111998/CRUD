@@ -64,14 +64,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dataItem of mydate | filter:selected ">
+      <tr *ngFor="let dataItem of mydate | filter:selected "> <!-- paginate: { itemsPerPage: 10, currentPage: p }-->
         <td>{{dataItem.EmployeeId}}</td>
         <td>{{dataItem.EmployeeName}}</td>
         <td>{{dataItem.EmailId}}</td>
         <td> {{dataItem.PhoneNo}} </td>
         <td>{{dataItem.Department}}</td>
         <td>{{dataItem.EmpSalary}}</td>
-        <td>{{dataItem.DateOfJoining}}</td>
+        <td>{{dataItem.DateOfJoining | datePipe}}</td>
         <td>
           <button type="button" class="btn btn-primary mr-1" data-toggle="modal" data-target="#exampleModal"
             (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">Edit
@@ -85,11 +85,23 @@
   <nav aria-label="Page navigation example" class="float-right">
     <ul class="pagination">
       <li class="page-item">
-        <button class="btn btn-primary mx-2" (click)="paginationincDec(page)">privius</button>
+        <a class="page-link"  aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
       </li>
+      <li class="page-item"><a class="page-link" (click)="paginationincDec(page)" >1</a></li>
+      <li class="page-item"><a class="page-link" (click)="paginationInc(page)" >2</a></li>
+      <li class="page-item"><a class="page-link" >3</a></li>
       <li class="page-item">
-        <button class="btn btn-primary" (click)="paginationInc(page)">next</button>
+        <a class="page-link"  aria-label="Next">
+          <span aria-hidden="true" (click)="paginationInc(page)" >&raquo;</span>
+        </a>
       </li>
+      <form class="form-inline float-right m-2">
+        <input class="form-control mr-sm-1" [(ngModel)]="page" name="first" type="search" placeholder="Jump To"
+          aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" (click)="paginationInc(page)" type="submit">Jump To</button>
+      </form>
     </ul>
   </nav>
 </div>
