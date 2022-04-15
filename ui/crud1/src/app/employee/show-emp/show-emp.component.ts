@@ -17,20 +17,17 @@ import {
 })
 export class ShowEmpComponent implements OnInit {
   formGrp!: FormGroup;
-  no=0;
 
   EmployeeList: any = [];
 
   constructor(
     private service: SharedService,
-    private http: HttpClient,
     private fb: FormBuilder
   ) {
     this.formGrp = this.fb.group({
       collection: this.fb.array([]),
     });
   }
-  
 
   DepartmentsList: any = [];
 
@@ -52,7 +49,6 @@ export class ShowEmpComponent implements OnInit {
     this.refreshEmpList();
   }
 
-
   // const collection = this.mydate.get('collection');
   // if (!collection.value.includes(val)) {
   //   collection.push(this.fb.control(val));
@@ -64,7 +60,6 @@ export class ShowEmpComponent implements OnInit {
       (item: any) => item.name === this.selected
     );
   }
-  
 
   //for gate data from databases
   refreshEmpList() {
@@ -111,16 +106,12 @@ export class ShowEmpComponent implements OnInit {
     });
   }
 
-
-
   //**********for FormArray *********** */
   addCullection() {
-    this.service.getEmpList().subscribe((collection: any) => {
-      this.formGrp = collection
-    });
-    console.log(this.formGrp.value)
+    const hobbyFormArray = new FormArray([new FormControl('name')]);
+    console.log(hobbyFormArray.value);
+    console.log(hobbyFormArray.status);
   }
-  
 
   //**********search from data base*************
 

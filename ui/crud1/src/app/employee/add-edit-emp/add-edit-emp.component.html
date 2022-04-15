@@ -67,11 +67,12 @@
                         <label class="col-sm-2 col-form-label">Date of joining</label>
                         <div class="col-sm-10">
                             <mat-form-field>
-                                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="DateOfJoining">
-                                <mat-datepicker-toggle matSuffix ></mat-datepicker-toggle>
-                                <ngx-mat-datetime-picker #picker  >
+                                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"
+                                    [formControl]="DateOfJoining">
+                                <mat-datepicker-toggle matSuffix></mat-datepicker-toggle>
+                                <ngx-mat-datetime-picker #picker>
                                 </ngx-mat-datetime-picker>
-                              </mat-form-field>
+                            </mat-form-field>
                             <div *ngIf="submit && f['DateOfJoining'].errors" class="invalid-feedback">
                                 <div *ngIf="f['DateOfJoining'].errors['required']">Date is required</div>
                             </div>
@@ -86,11 +87,13 @@
 
             </form>
 
-            <button (click)="addEmployee()" [disabled]="frgForm.invalid"  (click)="reloadPage()"  data-bs-dismiss="modal"  *ngIf="emp.EmployeeId==0" class="btn btn-primary">
+            <button (click)="addEmployee()" [disabled]="frgForm.invalid" (click)="reloadPage()" data-bs-dismiss="modal"
+                *ngIf="emp.EmployeeId==0" class="btn btn-primary">
                 Add
             </button>
 
-            <button (click)="updateEmployee()" [disabled]="frgForm.invalid" (click)="reloadPage()" data-bs-dismiss="modal" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
+            <button (click)="updateEmployee()" [disabled]="frgForm.invalid" (click)="reloadPage()"
+                data-bs-dismiss="modal" *ngIf="emp.EmployeeId!=0" class="btn btn-primary">
                 Update
             </button>
         </div>
