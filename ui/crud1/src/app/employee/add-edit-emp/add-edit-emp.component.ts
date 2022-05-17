@@ -11,25 +11,28 @@ export class AddEditEmpComponent implements OnInit {
 
   submit = false;
   picker:any;
-  constructor(private service: SharedService) { }
+  frgForm!: FormGroup;
+  items!: FormArray; 
 
-  EmployeeName = new FormControl('', [Validators.required, Validators.minLength(2)]);
-  EmailId = new FormControl('', [Validators.required, Validators.email]);
-  Department = new FormControl('', [Validators.required]);
-  DateOfJoining = new FormControl('', [Validators.required]);
-  PhoneNo = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}'),
-  Validators.minLength(10), Validators.maxLength(10)]);
-  EmpSalary = new FormControl('',[Validators.required]);
+  constructor(private service: SharedService, private fb: FormBuilder) { }
+
+  // EmployeeName = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  // EmailId = new FormControl('', [Validators.required, Validators.email]);
+  // Department = new FormControl('', [Validators.required]);
+  // DateOfJoining = new FormControl('', [Validators.required]);
+  // PhoneNo = new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}'),
+  // Validators.minLength(10), Validators.maxLength(10)]);
+  // EmpSalary = new FormControl('',[Validators.required]);
 
 
-  frgForm = new FormGroup({
-    EmployeeName: this.EmployeeName,
-    EmailId: this.EmailId,
-    Department: this.Department,
-    DateOfJoining: this.DateOfJoining,
-    PhoneNo: this.PhoneNo,
-    EmpSalary: this.EmpSalary,
-  })
+  // frgForm = new FormGroup({
+  //   EmployeeName: this.EmployeeName,
+  //   EmailId: this.EmailId,
+  //   Department: this.Department,
+  //   DateOfJoining: this.DateOfJoining,
+  //   PhoneNo: this.PhoneNo,
+  //   EmpSalary: this.EmpSalary,
+  // })
 
 
 
@@ -41,9 +44,48 @@ export class AddEditEmpComponent implements OnInit {
 
   DepartmentsList: any = [];
 
-  ngOnInit(): void {
-    this.loadDepartmentList();
+
+  // frgForm = new FormGroup({
+  //   EmployeeName: new FormArray([
+  //     new FormControl('', [Validators.required, Validators.minLength(2)]),
+  //   ]),
+  //   EmailId: new FormArray([
+  //     new FormControl('', [Validators.required, Validators.email]),
+  //   ]),
+  //   Department: new FormArray([
+  //     new FormControl('', [Validators.required])
+  //   ]),
+  //   DateOfJoining: new FormArray([
+  //     new FormControl('', [Validators.required]),
+  //   ]),
+  //   PhoneNo : new FormArray([
+  //     new FormControl('', [Validators.required, Validators.pattern('[- +()0-9]{10,}'),
+  //     Validators.minLength(10), Validators.maxLength(10)]),
+  //   ]),
+  //   EmpSalary : new FormArray([
+  //     new FormControl('',[Validators.required]),
+  //   ]),
+  // })
+
+  get names(): FormArray {
+    return this.frgForm.get('EmployeeName') as FormArray;
   }
+
+  ngOnInit(): void {
+
+    this.loadDepartmentList();
+    this.frgForm = this.fb.group({
+      EmployeeName : ['', [Validators.required, Validators.minLength(2)]],
+      EmailId : ['', [Validators.required, Validators.email]],
+      Department : ['', [Validators.required]],
+      DateOfJoining : ['', [Validators.required]],
+      PhoneNo : ['', [Validators.required, Validators.pattern('[- +()0-9]{10,}'),
+      Validators.minLength(10), Validators.maxLength(10)]],
+      EmpSalary : ['',[Validators.required]],
+    });
+  }
+
+
   closePicker() {
     this.picker.cancel();
   }
@@ -88,7 +130,7 @@ export class AddEditEmpComponent implements OnInit {
       ...this.frgForm.value,
       PhotoFileName: this.PhotoFileName
     };
-    console.log(this.DateOfJoining);
+    // console.log(this.DateOfJoining);
     this.service.updateEmployee(val).subscribe(res => {
       alert(res.toString());
     });

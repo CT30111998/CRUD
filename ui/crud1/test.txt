@@ -462,3 +462,16 @@ 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
     </tr>
   </tbody>
 </table>
+
+
+
+//*******FormArray backup*********//
+ addEmployee() {
+    this.service.getEmpList().subscribe((data:any)=>{
+      this.mydate =data;
+       this.employeeArray = new FormArray([new FormControl(this.mydate)]);
+      console.log(this.employeeArray.value);
+      // console.log(this.mydate);
+      console.log(this.employeeArray.status);
+    }) 
+  }

@@ -21,7 +21,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchBynamePipe } from './pipes/search-byname.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {
   BsDatepickerModule,
@@ -40,7 +40,7 @@ import {
   NgxMatTimepickerModule,
   NgxMatNativeDateModule
 } from '@angular-material-components/datetime-picker';
-import { DatePipePipe } from './pipes/date-pipe.pipe';
+import { DatePipePipe } from './pipes/date-pipe.pipe'
 
 @NgModule({
   declarations: [
@@ -80,7 +80,8 @@ import { DatePipePipe } from './pipes/date-pipe.pipe';
     NgxPaginationModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+    MatRippleModule
 
   ],
 

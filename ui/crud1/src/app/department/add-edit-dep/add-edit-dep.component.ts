@@ -10,7 +10,7 @@ export class AddEditDepComponent implements OnInit {
   constructor(private service: SharedService) {}
 
   @Input() dep: any;
-  DepartmentId: any;
+  DepartmentId: any; 
   DepartmentName: any;
 
   ngOnInit(): void {

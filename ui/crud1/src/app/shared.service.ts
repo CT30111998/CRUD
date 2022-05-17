@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MyModel } from './models/my-model.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,7 @@ export class SharedService {
 
   constructor(private http: HttpClient) {}
 
-  getDepList(): Observable<any[]> {
+  getDepList(): Observable<any[]> { 
     return this.http.get<any[]>(this.APIUrl + '/department/');
   }
 
@@ -38,6 +40,7 @@ export class SharedService {
   // }
 
   addEmployee(val: any) {
+    const Empl : MyModel[]=[{EmailId:'', EmpSalary:'', DateOfJoining:'', EmployeeName:'', Department:'',PhoneNo:'', PhotoFileName:'', EmployeeId:''}];
     return this.http.post(this.APIUrl + '/employee/', val);
   }
 
@@ -57,19 +60,21 @@ export class SharedService {
     return this.http.get<any[]>(this.APIUrl + '/department/');
   }
 
-  searchEmployee(search_text:any) {
-    return this.http.get<any[]>(this.APIUrl+
-      `/employee/?EmployeeName=${search_text}`
+  searchEmployee(search_text: any) {
+    return this.http.get<any[]>(
+      this.APIUrl + `/employee/?EmployeeName=${search_text}`
     );
   }
 
-  paginationEmplInc(page:any){
-    return this.http.get<any[]>(this.APIUrl+`/employee/?page=${page}`);
+  paginationEmplInc(page: any) {
+    return this.http.get<any[]>(this.APIUrl + `/employee/?page=${page}`);
   }
 
-  paginationEmplDes(page:any){
-    return this.http.get<any[]>(this.APIUrl+`/employee/?page=1`);
+  paginationEmplDes(page: any) {
+    return this.http.get<any[]>(this.APIUrl + `/employee/?page=1`);
   }
-  
 
+  multiFilter(page: any, search_text: any) {
+    return this.http.get<any[]>(this.APIUrl + `/emeloyee/?page=${page} && ?EmployeeName=${search_text}`);
+  }
 }

@@ -23,7 +23,7 @@ export class ShowDepComponent implements OnInit {
 
   DepartmentIdFilter: string = "";
   DepartmentNameFilter: string = "";
-  DepartmentListWithoutFilter: any = [];
+ 
 
   ngOnInit(): void {
     this.refreshDepList();
@@ -55,7 +55,6 @@ export class ShowDepComponent implements OnInit {
     }
     this.ModalTitle = "Add Department";
     this.ActivateAddEditDepComp = true;
-
   }
 
   editClick(item: any) {
@@ -83,7 +82,7 @@ export class ShowDepComponent implements OnInit {
     this.service.getDepList().subscribe(data => {
       this.DepartmentList = data;
       this.loadEmp();
-      this.DepartmentListWithoutFilter = data;
+      
     });
   }
 

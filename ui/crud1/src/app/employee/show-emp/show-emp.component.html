@@ -1,6 +1,5 @@
 <!-- Button trigger modal -->
 
-
 <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal"
   (click)="addClick()" data-backdrop="static" data-keyboard="false">
   Add Employee
@@ -8,25 +7,26 @@
 
 <form class="form-inline float-right m-2">
   <input class="form-control mr-sm-2" [(ngModel)]="search1" name="first" type="search" placeholder="Search"
-    aria-label="Search">
-  <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchEmp(search1)" type="submit">Search</button>
+    aria-label="Search" />
+  <button class="btn btn-outline-success my-2 my-sm-0" (click)="searchEmp(search1)" type="submit">
+    Search
+  </button>
 </form>
 
-<div class=" col-sm-2  float-right m-2">
-  <select class="form-control" [(ngModel)]="selected" (change)="valueSelected">
+<div class="col-sm-2 float-right m-2">
+  <select class="form-control" [(ngModel)]="selected" (change)="(valueSelected)">
     <option value="">--Select--</option>
     <option *ngFor="let depName of DepartmentsList">
-      {{depName.DepartmentName}}
+      {{ depName.DepartmentName }}
     </option>
   </select>
 </div>
 
 <!--  Filter By Date  -->
 
-<div class=" col-sm-3  float-right m-2">
+<div class="col-sm-3 float-right m-2">
   <input (change)="SendDataonChange($event)" type="date" placeholder="Date" class="form-control" />
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -34,7 +34,7 @@
   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h2>
+        <h2 class="modal-title" id="exampleModalLabel">{{ ModalTitle }}</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -46,61 +46,74 @@
     </div>
   </div>
 </div>
-<div class="containor">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>No.</th>
-        <th>EmployeeId</th>
-        <th>EmployeeName</th>
-        <th>Email ID</th>
-        <th>Mobile No</th>
-        <th>Department</th>
-        <th>Salary</th>
-        <th>DateOfJoining</th>
-        <th>Options</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let dataItem of mydate | filter:selected;let i=index" > <!-- paginate: { itemsPerPage: 10, currentPage: p }-->
-        <td>{{i+1}}</td>
-        <td>{{dataItem.EmployeeId}}</td>
-        <td>{{dataItem.EmployeeName}}</td>
-        <td>{{dataItem.EmailId}}</td>
-        <td> {{dataItem.PhoneNo}} </td>
-        <td>{{dataItem.Department}}</td>
-        <td>{{dataItem.EmpSalary}}</td>
-        <td>{{dataItem.DateOfJoining | datePipe}}</td>
-        <td>
-          <button type="button" class="btn btn-primary mr-1" data-toggle="modal" data-target="#exampleModal"
-            (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">Edit
+
+
+<form [formGroup]="formGrp" >
+  <div class="containor">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>EmployeeId</th>
+          <th>EmployeeName</th>
+          <th>Email ID</th>
+          <th>Mobile No</th>
+          <th>Department</th>
+          <th>Salary</th>
+          <th>DateOfJoining</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dataItem of formGrp.controls['employeeArray'].value| filter: selected; let i = index">
+          <!-- paginate: { itemsPerPage: 10, currentPage: p }  controls -->
+          <td>{{ i + 1 }}</td>
+          <td>{{ dataItem.EmployeeId }}</td>
+          <td>{{ dataItem.EmployeeName }}</td>
+          <td>{{ dataItem.EmailId }}</td>
+          <td>{{ dataItem.PhoneNo }}</td>
+          <td>{{ dataItem.Department }}</td>
+          <td>{{ dataItem.EmpSalary }}</td>
+          <td>{{ dataItem.DateOfJoining | datePipe }}</td>
+          <td>
+            <button type="button" class="btn btn-primary mr-1" data-toggle="modal" data-target="#exampleModal"
+              (click)="editClick(dataItem)" data-backdrop="static" data-keyboard="false">
+              Edit
+            </button>
+            <button type="button" class="btn btn-danger mr-1" (click)="deleteClick(dataItem)">
+              DELETE
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav aria-label="Page navigation example" class="float-right">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" (click)="paginationincDec(page)">1</a>
+        </li>
+        <li class="page-item">
+          <a class="page-link" (click)="paginationInc(page)">2</a>
+        </li>
+        <li class="page-item"><a class="page-link">3</a></li>
+        <li class="page-item">
+          <a class="page-link" aria-label="Next">
+            <span aria-hidden="true" (click)="paginationInc(page)">&raquo;</span>
+          </a>
+        </li>
+        <form class="form-inline float-right m-2">
+          <!-- <input class="form-control mr-sm-1" [(ngModel)]="page" name="first" type="search" placeholder="Jump To"
+            aria-label="Search" /> -->
+          <button class="btn btn-outline-success my-2 my-sm-0" (click)="paginationInc(page)" type="submit">
+            Jump To
           </button>
-          <button type="button" class="btn btn-danger mr-1" (click)="deleteClick(dataItem)">DELETE
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="Page navigation example" class="float-right">
-    <ul class="pagination">
-      <li class="page-item">
-        <a class="page-link"  aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" (click)="paginationincDec(page)" >1</a></li>
-      <li class="page-item"><a class="page-link" (click)="paginationInc(page)" >2</a></li>
-      <li class="page-item"><a class="page-link" >3</a></li>
-      <li class="page-item">
-        <a class="page-link"  aria-label="Next">
-          <span aria-hidden="true" (click)="paginationInc(page)" >&raquo;</span>
-        </a>
-      </li>
-      <form class="form-inline float-right m-2">
-        <input class="form-control mr-sm-1" [(ngModel)]="page" name="first" type="search" placeholder="Jump To"
-          aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" (click)="paginationInc(page)" type="submit">Jump To</button>
-      </form>
-    </ul>
-  </nav>
-</div>
+        </form>
+      </ul>
+    </nav>
+  </div>
+</form>

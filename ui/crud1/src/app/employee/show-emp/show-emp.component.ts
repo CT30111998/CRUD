@@ -9,6 +9,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
+import { MyModel } from 'src/app/models/my-model.model';
 
 @Component({
   selector: 'app-show-emp',
@@ -17,15 +18,64 @@ import {
 })
 export class ShowEmpComponent implements OnInit {
   formGrp!: FormGroup;
+  MyEmp: MyModel[] = [];
 
   EmployeeList: any = [];
 
-  constructor(
-    private service: SharedService,
-    private fb: FormBuilder
-  ) {
+  constructor(private service: SharedService, private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.refreshEmpList();
     this.formGrp = this.fb.group({
-      collection: this.fb.array([]),
+      employeeArray: this.fb.array([]),
+    });
+
+    this.service.getEmpList().subscribe((data1: MyModel[]) => {
+      // console.log(JSON.stringify(data1, null , 2));
+
+      const newList: MyModel[] = [];
+      data1.forEach((benefit: MyModel) => {
+        newList.push(benefit);
+      });
+
+      const fa = this.formGrp.controls['employeeArray'] as FormArray;
+
+      newList.forEach((b: MyModel) => {
+        fa.push(
+          this.getEmployees(
+            b.EmployeeId,
+            b.EmployeeName,
+            b.EmpSalary,
+            b.DateOfJoining,
+            b.EmailId,
+            b.Department,
+            b.PhoneNo,
+            b.PhotoFileName
+          )
+        );
+      });
+      console.log(this.formGrp.value);
+    });
+  }
+  getEmployees(
+    EmployeeId: any,
+    EmployeeName: any,
+    EmpSalary: any,
+    DateOfJoining: any,
+    EmailId: any,
+    Department: any,
+    PhoneNo: any,
+    PhotoFileName: any
+  ): FormGroup {
+    return new FormGroup({
+      EmployeeId: new FormControl(EmployeeId),
+      EmployeeName: new FormControl(EmployeeName),
+      EmpSalary: new FormControl(EmpSalary),
+      DateOfJoining: new FormControl(DateOfJoining),
+      EmailId: new FormControl(EmailId),
+      Department: new FormControl(Department),
+      PhoneNo: new FormControl(PhoneNo),
+      PhotoFileName: new FormControl(PhotoFileName),
     });
   }
 
@@ -35,19 +85,12 @@ export class ShowEmpComponent implements OnInit {
   search1: any;
 
   page: any;
-  p: any;
 
-  startDate: any;
-  selectedMembers: any;
   mydate: any;
 
   ModalTitle: any;
   ActivateAddEditEmpComp: boolean = false;
   emp: any;
-
-  ngOnInit(): void {
-    this.refreshEmpList();
-  }
 
   // const collection = this.mydate.get('collection');
   // if (!collection.value.includes(val)) {
@@ -66,7 +109,8 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data) => {
       this.loadDepartmentList();
       this.loadEmployee();
-      this.addCullection();
+
+      // this.addEmployee();
       // this.dateFilterChanged(this.EmployeeList);
       this.EmployeeList = data;
     });
@@ -101,17 +145,11 @@ export class ShowEmpComponent implements OnInit {
     this.service.getEmpList().subscribe((data: any) => {
       this.EmployeeList = data;
       this.mydate = data;
-      this.formGrp = data;
-      console.log(this.EmployeeList);
+      // console.log(this.EmployeeList);
     });
   }
 
   //**********for FormArray *********** */
-  addCullection() {
-    const hobbyFormArray = new FormArray([new FormControl('name')]);
-    console.log(hobbyFormArray.value);
-    console.log(hobbyFormArray.status);
-  }
 
   //**********search from data base*************
 
@@ -165,7 +203,7 @@ export class ShowEmpComponent implements OnInit {
 
   //For Add in current Fild
   editClick(item: any) {
-    console.log(item);
+    // console.log(item);
     this.emp = item;
     this.ModalTitle = 'Edit Employee';
     this.ActivateAddEditEmpComp = true;
